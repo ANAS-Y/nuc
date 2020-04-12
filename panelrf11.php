@@ -7,7 +7,7 @@
 <div class="card-title " >
 <h3 style="text-align: center;">ACCREDITATION PANEL REPORT FORM (APENDIX F)</h3>
 <h6 style="text-align: center;">UPLOADING OF FILES</h6>
-<h6 style="text-align: center;">Upload Names and Signatures file </h6>
+<h6 style="text-align: center;">Upload file Containing Names and Signatures  </h6>
 </div>
 
   
