@@ -8,13 +8,17 @@ function confirmPassword(){
     }
     else{
        document.getElementById('msg').style.color ='red';
-         document.getElementById('msg').innerHTML ='your password must be more than 5 Characters'; 
+         document.getElementById('msg').innerHTML ='your password must be more than 5 Characters';
+         document.getElementById('pwd').value="";
+         document.getElementById('cpwd').value="";
     }
     
     }
     else{
         document.getElementById('msg').style.color ='red';
          document.getElementById('msg').innerHTML ='Password did Not Match';
+         document.getElementById('pwd').value="";
+         document.getElementById('cpwd').value="";
     }
 }
 function lawYes(){
@@ -23,6 +27,8 @@ function lawYes(){
     document.getElementById('lawUpload').hidden='';
     document.getElementById('lawText').hidden='hidden'; 
     document.getElementById('lawUpload').required='required';
+    document.getElementById('No').required='';
+    document.getElementById('Plaw').value='Yes';
     
 }
 function lawNo(){
@@ -31,6 +37,8 @@ function lawNo(){
     document.getElementById('lawText').hidden=''; 
     document.getElementById('lawUpload').hidden='hidden';
     document.getElementById('lawText').required='required';
+    document.getElementById('Yes').required='';
+    document.getElementById('Plaw').value='No';
     }
     
    function scoreSelect(){
@@ -75,3 +83,34 @@ function lawNo(){
      }
       
       }
+      
+      
+     function deleteProgramme(programmeID,hodID){
+         
+         var deleteProg = confirm('Are you Sure you want to delete this Programme?');
+         if(deleteProg==true){
+         
+         if (window.XMLHttpRequest) {
+            // code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            // code for IE6, IE5
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                location.href ="apply.php";
+                document.getElementById('msg').innerHTML = xmlhttp.responseText;
+                
+          
+            }
+        };
+        var urlString= "?pID="+programmeID;
+         urlString+="&hodID="+hodID
+        xmlhttp.open("GET","deleteProgramme.php"+urlString,true);
+        xmlhttp.send();
+     }
+     else{
+     }
+     }
+     

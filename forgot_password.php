@@ -1,4 +1,34 @@
-<?php require ('header1.inc');?>
+
+<?php 
+require ('header1.inc');
+  function input_check($data){ 
+    $data=trim($data);
+    $data=stripslashes($data);
+    $data=htmlspecialchars($data);
+    return($data);
+}
+if($_SERVER["REQUEST_METHOD"]=="POST"){
+$email =  input_check($_POST["email"]);
+
+include_once("connection.php");
+            /* Performing SQL query */
+    $sql = "SELECT*FROM `vcinformation_ssf` WHERE email ='$email'";
+if (!mysqli_query($db_link,$sql)){
+    die("Faild  to check email" . mysqli_error($db_link));
+   }
+   $result = mysqli_query($db_link,$sql);
+   if(mysqli_num_rows($result) > 0){
+    $fetch =mysqli_fetch_assoc($result);
+    $email =$fetch["email"];
+$_SESSION["msg"]= 'Your password was sent to ' .$email. '<br> please check your inbox or sperm';
+} else{
+
+$_SESSION["msg"]= ' Email donot exist or not register with any account';
+   }
+mysqli_close($db_link);
+}
+ ?>
+
 <div class="container-fluid">
 <!-- first div start here-->
 <div class="col card" >
@@ -7,17 +37,19 @@
 <h4 style="text-align: center; font-family: fantasy;color:#2C7337 ;">VC/HOD AREA</h4>
 </div>
 <div class="jumbotron login-form" id="requestLogin">
- <form action="" method="post">
+<h6 style="text-align: center; font-family: fantasy;color:red ;"><?php echo $_SESSION["msg"];?></h6>
+
+ <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"])?>" method="post">
 <div class="form-row">
             <label for="email" class="col-sm-3"><b>User Email</b></label>
         <div class="col-sm-9">
-            <input type="email" class="form-control" placeholder="Enter Email" name="email" required>
+            <input type="email" value=""class="form-control" placeholder="Enter Email" name="email" required>
         </div>
          
 </div>
     
     <div class="form-row">
-    <button type="submit" class="btn btn-primary login-btn" style="margin-left: 27%;">Reset Password</button>
+    <button type="submit" class="btn btn-primary login-btn" style="margin-left: 27%; width: 50%;">Recover Password</button>
     </div>
     
      <div class="form-row">
@@ -34,4 +66,6 @@
 </div>
 <!-- Container closing tag-->
 </div>
-<?php require ('footer.inc');?>
+<?php require ('footer.inc');
+$_SESSION["msg"]= ''
+?>

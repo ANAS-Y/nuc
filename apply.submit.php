@@ -1,5 +1,22 @@
 
-<?php require ('header1.inc');?>
+<?php 
+session_start();
+include_once("connection.php");
+$accreditationID = $_SESSION["accreditationID"];
+mysqli_select_db($db_link,"nucaccreditation") or die("Could not select database");
+            
+             /* Performing SQL query */
+  $sql = "SELECT * FROM accreditationrequest_apply WHERE accreditationID = '$accreditationID'";
+             if (!mysqli_query($db_link,$sql)){
+  die("Faild  to check the existance of request" . mysqli_error($db_link));    
+}
+
+if(mysqli_num_rows(mysqli_query($db_link,$sql)) > 0){
+    $_SESSION["msg"]= "ACCREDITATION REQUEST ALREADY SUBMITED";
+    header('location:apply.home.php');
+}
+require ('header1.inc');
+?>
 <div class="container-fluid">
 <!-- first div start here-->
 <div class="col card" >
@@ -13,16 +30,16 @@
 <div class="col" >
 <div class=" card form-category"  >
 
-<form>
+<form method="POST" action="submitApply.php">
     <div class="form-group">
     <label for="aReasons">What are the reasons for requesting accreditation?</label>
-    <textarea class="form-control" id="areasons" rows="7"></textarea>
+    <textarea class="form-control"  required="required" id="areasons" rows="7" name="reasons"></textarea>
   </div>
  
   <div class="form-row">
      <label for="adate" class="col-sm-5" >Proposed Accreditation Date </label>
      <div class="col-sm-7">
-      <input type="date" class="form-control" placeholder="Established Date" id="adate"name="adate">
+      <input type="date" class="form-control" required="required" placeholder="Established Date" id="adate"name="adate">
     
     </div>
   </div>
@@ -48,12 +65,12 @@
       <input type="text" id="vcLame" name="vcLname" required="required"class="form-control" placeholder=" Surname">
       </div>
     <div class="col">
-      <input type="text" id="vcOname" name="vcOname" required="required"class="form-control" placeholder="Other name">
+      <input type="text" id="vcOname" name="vcOname" class="form-control" placeholder="Other name">
       </div>
   </div>
   <div class="form-row">
      <div class="form-row" style="margin-left:0%;">
-      <div class="col"><input type="checkbox"  checked="checked" name="remember"> <label for="remeber" >I Confirmed that the Information
+      <div class="col"><input type="checkbox" required="required"  name="agree"> <label for="remeber" >I Confirmed that the Information
       provided Here are correct</label></div>
      
     </div>

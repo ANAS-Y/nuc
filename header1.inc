@@ -1,3 +1,30 @@
+<?php
+	session_start();
+
+   if( $_SESSION["loginStatus"]!="login"){
+        header('location:apply.login.php');
+   }
+    else{
+        if($_SESSION['position']!='VC'){
+           header('location:hodssf.php'); 
+        }
+    }
+$accreditationID=$_SESSION['accreditationID'];
+include_once("connection.php");
+            /* Performing SQL query */
+$sql = "SELECT * FROM vcselfstudy_ssf WHERE accreditationID= '$accreditationID'";
+if (!mysqli_query($db_link,$sql)){die("Faild  to check the existance of Vc's self study form" . mysqli_error($db_link));}
+
+if(mysqli_num_rows(mysqli_query($db_link,$sql)) > 0){
+$result = mysqli_query($db_link,$sql);
+$fetch = mysqli_fetch_assoc($result);
+
+$status = $fetch["submissonStatus"];
+if ($status =='submited'){
+   // header('location:ssf.home.php');
+   }
+   }  
+?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -16,14 +43,14 @@
       
  <title>National Universities commission</title>
   </head>
-  <body>
+  <body onload="programmeDisplay">
           
   <!-- Navigation bar start here -->
   <div class="container-fluid navdiv" >
   
    <!-- Top navbar with a marquee start here-->
-     <div class="container-fluid topnav" > <marquee behavior="scroll" direction="left"><a href="#">Click here to View new Accreditated Programmes. 2 Undergradute and 1
-      post graduate program accredited at Federal University Gusau, on 12th March, 2020</a> </marquee>
+     <div class="container-fluid topnav" > 
+     <a href="logOut.php" style="text-decoration: none; color:white;margin-left: 95%;">Log out</a>
      </div>
      
   <nav class="navbar navbar-expand-lg navbar-light">

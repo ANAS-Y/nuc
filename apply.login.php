@@ -1,4 +1,6 @@
-<?php require ('header1.inc');?>
+<?php require ('header1.inc');
+ 
+?>
 <div class="container-fluid">
 <!-- first div start here-->
 <div class="col card" >
@@ -7,15 +9,16 @@
 <h4 style="text-align: center; font-family: fantasy;color:#2C7337 ;">VC/HOD LOGIN AREA</h4>
 </div>
 <div class="jumbotron login-form" id="requestLogin">
- <form action="" method="post">
+<h4 style="text-align: center; font-family: fantasy;color:red ;"><?php echo $_SESSION["msg"];?></h4>
+ <form action="vchodlogin.php" method="post" >
 <div class="form-row">
             <label for="email" class="col-sm-3"><b>User Email</b></label>
         <div class="col-sm-9">
-            <input type="email" class="form-control" placeholder="Enter Email" name="email" required>
+            <input type="email" class="form-control" placeholder="Enter Email" id="email" name="email" required>
         </div>
             <label for="psw" class="col-sm-3"><b>Password</b></label>
         <div class="col-sm-9">
-            <input type="password"  class="form-control"placeholder="Enter Password" name="psw" required>
+            <input type="password"  class="form-control"placeholder="Enter Password" id="psw" name="psw" required>
         </div>
 </div>
     
@@ -46,4 +49,6 @@
 </div>
 <!-- Container closing tag-->
 </div>
-<?php require ('footer.inc');?>
+<?php require ('footer.inc');
+$_SESSION["msg"]='';
+?>

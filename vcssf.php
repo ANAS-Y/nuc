@@ -1,5 +1,45 @@
 
-<?php require ('header1.inc');?>
+<?php require ('header1.inc');
+$accreditationID=$_SESSION["accreditationID"];
+?>
+<?php
+	include_once("connection.php");
+mysqli_select_db($db_link,"nucaccreditation") or die("Could not select database");
+            
+             /* Performing SQL query */
+  $sql = "SELECT * FROM universityinfo_ssf,vcinformation_ssf
+   WHERE universityinfo_ssf.accreditationID ='$accreditationID' AND vcinformation_ssf.accreditationID= '$accreditationID'
+ ";
+             if (!mysqli_query($db_link,$sql)){
+  die("Faild  to check the existance of request" . mysqli_error($db_link));    
+}
+
+if(mysqli_num_rows(mysqli_query($db_link,$sql)) > 0){
+    $result = mysqli_query($db_link,$sql);
+    $fetch=mysqli_fetch_assoc($result);
+   
+    $schoolName = $fetch["universityName"];
+       $address = $fetch["universityAddress"];
+       $telephone =$fetch["telephone"];
+       $foundedDate= $fetch["dateFounded"];
+       $proprietor = $fetch["proprietorsName"];
+       $proprietorPhone1 = $fetch["proprietorsTelephone1"];
+       $proprietorPhone2 =$fetch["proprietorsTelephone2"];
+       $parsuantLaw = $fetch["parsuantLaw"];
+       $parsuantEstablishe = $fetch["parsuantEstablishe"];
+       
+       
+       
+       $vcFname = $fetch["firstName"];
+        $vcLname = $fetch["surname"];
+        $vcOname = $fetch["otherName"];
+        $email = $fetch["email"];
+        $vcPhone =$fetch["telephone1"];
+        $vcPhone2 =$fetch["telephone2"];
+        $vcQualification = $fetch["qualification"];
+         $vcAddress =$fetch["homeAddress"];
+}
+?>
 <div class="container-fluid">
 <!-- first div start here-->
 <div class="col card" >
@@ -15,35 +55,35 @@
 <div class="card-title ">
 <h5 style="text-align: center;">University Information</h5>
 </div>
-<form>
+<form action="ssfUpdate1.php" method="post">
 <div class="form-row">
     <div class="col">
-      <input type="text"name="schoolName" required="requird" id="schoolName"class="form-control" placeholder="University Name">
+      <input type="text"name="schoolName" value="<?php echo $schoolName?>" required="requird" id="schoolName"class="form-control" placeholder="University Name">
     </div>
     </div>
     <div class="form-row">
     <div class="col-sm-8">
-    <input type="text"name="address" required="requird" id="address"class="form-control" placeholder="University Address">
+    <input type="text"name="address" value="<?php echo $address ?> "required="requird" id="address"class="form-control" placeholder="University Address">
       </div>
     <div class="col-sm-4">
-    <input type="text"name="telephone" required="requird" id="telephone"class="form-control" placeholder="Telephone">
+    <input type="text"name="telephone" value="<?php echo $telephone ?> "required="requird" id="telephone"class="form-control" placeholder="Telephone">
       </div>
   </div>
   <div class="form-row">
   <p class=" col-sm-3 text-responsive" >Date Founded</p>
     <div class="col-sm-3">
-      <input type="date" class="form-control" required="required"  id="fdate"name="fdate">
+      <input type="date" class="form-control" value="<?php echo $foundedDate ?> "required="required"  id="fdate"name="fdate">
     </div>
     <div class="col">
-      <input type="text" id="pname" name="pname" required="required" class="form-control" placeholder="University Proprietor's Full Name">
+      <input type="text" id="pname" name="pname" required="required" value="<?php echo $proprietor ?>" class="form-control" placeholder="University Proprietor's Full Name">
       </div>
   </div>
   <div class="form-row">
     <div class="col">
-      <input type="text" id="pTelphone1" name="ptelphone2" required="required" class="form-control" placeholder="Proprietor's Office Telephone">
+      <input type="text" id="pTelphone1" name="pTelphone1" required="required" value="<?php echo $proprietorPhone1  ?> "class="form-control" placeholder="Proprietor's Office Telephone">
       </div>
       <div class="col">
-      <input type="text" id="pTelphone2" name="pTelphone2" required="required"class="form-control" placeholder=" Proprietor's Home Telephone">
+      <input type="text" id="pTelphone2" name="pTelphone2" required="required"class="form-control" value="<?php echo  $proprietorPhone2?>" placeholder=" Proprietor's Home Telephone">
       </div>
    </div>
     <div class="form-row">
@@ -61,7 +101,7 @@
   </div>
    <div class="form-group" hidden="hidden" id="lawText">
     <label for="lawText">Explained steps being taken by proprietor for not establishe pursuant to a law</label>
-    <textarea class="form-control" id="lawText2" rows="3" name="lawText"></textarea>
+    <textarea class="form-control" id="lawText2" rows="3" name="lawText"> <?php echo $parsuantEstablishe ?></textarea>
   </div>
   </div>
   
@@ -77,40 +117,37 @@
 </div>
   <div class="form-row">
     <div class="col">
-      <input type="text" id="vcFame" name="vcFname" required="required" class="form-control" placeholder="First name">
+      <input type="text" id="vcFame" name="vcFname" value="<?php echo $vcFname  ?>" required="required" class="form-control" placeholder="First name">
       </div>
       <div class="col">
-      <input type="text" id="vcLame" name="vcLname" required="required"class="form-control" placeholder=" Surname">
+      <input type="text" id="vcLame" name="vcLname" value="<?php echo $vcLname ?>" required="required"class="form-control" placeholder=" Surname">
       </div>
     <div class="col">
-      <input type="text" id="vcOname" name="vcOname" required="required"class="form-control" placeholder="Other name">
+      <input type="text" id="vcOname" name="vcOname"value="<?php echo $vcOname  ?>"  required="required"class="form-control" placeholder="Other name">
       </div>
   </div>
   <div class="form-row">
     <div class="col">
-      <input type="text" id="vcTelephone1" name="vcTelephone1" required="required" class="form-control" placeholder="Office Telephone">
+      <input type="text" id="vcTelephone1" name="vcTelephone1" value="<?php echo $vcPhone  ?>" required="required" class="form-control" placeholder="Office Telephone">
       </div>
       <div class="col">
-      <input type="text" id="Telephone" name="vcTelephone" required="required"class="form-control" placeholder="Home Telephone">
+      <input type="text" id="Telephone" name="vcTelephone" value="<?php echo $vcPhone2  ?>" required="required"class="form-control" placeholder="Home Telephone">
       </div>
     <div class="col">
-      <input type="text" id="Qualification" name="Qualification" required="required"class="form-control" placeholder="Highest Qualification">
+      <input type="text" id="Qualification" name="Qualification" value="<?php echo $vcQualification ?>" required="required"class="form-control" placeholder="Highest Qualification">
       </div>
 </div>
 <div class="form-row">
     <div class="col">
-      <input type="text" id="vcAddress" name="vcAddress" required="required" class="form-control" placeholder="Vice-chancellor Home Address">
+      <input type="text" id="vcAddress" name="vcAddress" required="required" value="<?php echo $vcAddress  ?>" class="form-control" placeholder="Vice-chancellor Home Address">
       </div>
-      </div>
-<div class="form-row">
-      <label class="col"id="msg" style="color: red;margin:auto ;text-align: center;">Click Save before you procced!</label>
       </div>
 
 </div>
  
  <div class="form-row">
  <div class="col">
-<button type="submit" class="btn btn-primary login-btn" style="margin-left: 6%;width: 95%; ">Save</button>
+<button type="submit" class="btn btn-primary login-btn" style="margin-left: 6%;width: 95%; ">Update</button>
  </div>
  <div class="col">
 <a class="btn btn-primary login-btn" href="vcssf2.php" style="float: right;margin-right: 4%; width: 95%; ">Next</a>

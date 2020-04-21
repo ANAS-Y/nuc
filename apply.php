@@ -1,34 +1,66 @@
+<?php 
+require('header1.inc');
+include_once("connection.php");
+$accreditationID = $_SESSION["accreditationID"];
+mysqli_select_db($db_link,"nucaccreditation") or die("Could not select database");
+            
+             /* Performing SQL query */
+  $sql = "SELECT * FROM accreditationrequest_apply WHERE accreditationID = '$accreditationID'";
+             if (!mysqli_query($db_link,$sql)){
+  die("Faild  to check the existance of request" . mysqli_error($db_link));    
+}
 
-<?php require ('header1.inc');?>
+if(mysqli_num_rows(mysqli_query($db_link,$sql)) > 0){
+    $result = mysqli_query($db_link,$sql);
+    $fetch=mysqli_fetch_assoc($result);
+    $status =$fetch['status'];
+    $position = $_SESSION["position"];
+    
+    
+    if($status=='approved'){
+        if( $position=='VC'){
+            header('location:vcssf.php');
+            }
+        else{
+            header('location:hodssf.php');
+            }
+      
+    }
+    elseif($status=='submited'){
+    header('location:apply.home.php');
+    }
+   
+}
+
+?>
 <div class="container-fluid">
 <!-- first div start here-->
 <div class="col card" >
 <!-- first div title-->
-<div class="card-title " >
-<h3 style="text-align: center;">ACCREDITATION REQUEST</h3>
+<div class="card-title "  >
+<h3 style="text-align: center; " >ACCREDITATION REQUEST</h3>
+
+<div class="alert">
+<h3 id="msg" style="text-align: center; color: red;" class="alert-link" ><?php echo $_SESSION["msg"];?></h3>
+</div>
 </div>
 <?php
-$numRow ='';
-$faculty ="Science";
-$department="Computer Science";	
-$programme ="Computer Science";
-$status="New Department/New programme";
-$edate ="12/6/2020";
-$hod_fuulName ="Anas Yunusa Adamu";
-$hod_contact ="08086777408/yunusa.anas.ay@gmail.com";
-$hod_qualification ="B.Tech Computer Science";
-
-?>
-<input type="hidden" id="numRow"value="<?php echo $numRow; ?>"/>
-<div class="row">
+include_once("connection.php");
+$sql = "SELECT* FROM programme_apply WHERE accreditationID ='$accreditationID'";
+            
+             if (!mysqli_query($db_link,$sql)){
+  die("Faild  to check the existance of programmes" . mysqli_error($db_link));    
+}
+$result = mysqli_query($db_link,$sql);
+ $numRow =  mysqli_num_rows($result); 
+ 
+if ($numRow >0 ){
+    echo'<div class="row">
 <!-- Third column start here-->
-<div class="col card form-category" id="filled-section" style="display:none;">
-<div style="background-color:#7CC68D; color: white;">
+<div class="col card form-category" id="filled-section"  style="font-size:11px;">
+<div style="background-color:#7CC68D; color: white;font-size:8px;">
 <h5 style="text-align:center;">SAVED PROGRAMMES</h5>
 </div>
-<?php
- if ($numRow >0 ){
-    echo'
     <table class="table">
 <tr class="trheader">
 	<td>Faculty</td>
@@ -39,45 +71,77 @@ $hod_qualification ="B.Tech Computer Science";
 	<td> HOD Name</td>
 	<td>HOD Contact</td>
 	<td>HOD Qualification</td>
+    <td>Action Button</td>
 </tr>';
+    while($fetch=mysqli_fetch_assoc($result) ){
+       
+        $hodID =$fetch['hodID'];
+          //check for HOD's Details
+    $sql2 = "SELECT* FROM hods_account WHERE accreditationID ='$accreditationID'AND hodID = '$hodID'";
+            
+             if (!mysqli_query($db_link,$sql2)){
+  die("Faild  to check the HOD's Details" . mysqli_error($db_link));    
+}
+$result2 = mysqli_query($db_link,$sql2);
+$fetch2=mysqli_fetch_assoc($result2); 
+        
+        $faculty =$fetch['faculty'];
+$department=$fetch["department"];;	
+$programme =$fetch["programme"];;
+$status=$fetch["status"];
+$establishDate =$fetch["dateEstablished"];
+$programmeID =$fetch["pID"];
+$hodID =$fetch["hodID"];
 
-    for ($i=0; $i<=$numRow; $i++){
+
+$hod_fulName =$fetch2["firstName"]." ".$fetch2["surname"]." ".$fetch2["otherName"];
+$hod_contact =$fetch2["telephone"]."/".$fetch2["email"];
+$hod_qualification =$fetch2["qualification"];
+
+
     echo'
     <tr class="tr">
-	<td>A$i</td>
-	<td>B</td>
-	<td>C</td>
-	<td>D</td>
-	<td>E</td>
-	<td>F</td>
-	<td>G</td>
-	<td>H</td>
+    <form method="post" enctype="text/plain">
+	<td>'.$faculty.'</td>
+	<td>'.$department.'</td>
+	<td>'.$programme.'</td>
+	<td>'.$status.'</td>
+	<td>'.$establishDate.'</td>
+	<td>'.$hod_fulName.'</td>
+	<td>'.$hod_contact.'</td>
+	<td>'.$hod_qualification.'</td>
+ <td><input type="button"  style="color:white; background-color:red;" name="'.$hodID.'" id="'.$programmeID.'" value="Delete" onclick="deleteProgramme(this.id,this.name)" /> </td>
+ </form>
     </tr>';
     }
+    $result->close();
+    $result2->close();
+    }
+   
  echo'</table>';
- }
+
 ?>
 
-  
-  </div>
-  </div>
+ 
+
   
 <div class="row" >
 <!-- first column start here-->
 <div class="col" >
-<div class=" card form-category"  >
+<div class=" card form-category"   >
 <div class="card-title " >
 <h5 style="text-align: center;">Programme Details</h5>
+<h6  class="alert" style="  text-align: center; color: red;   font-size: 14px;"  > </h6>
 </div>
-<form>
+<form action="applyNext1.php" method="post" >
     <div class="form-row">
     <div class="col">
-      <input type="text" required="required" id="faculty"  name="faculty"class="form-control" placeholder="Faculty">
+      <input type="text" required="required" id="faculty" onclick="" name="faculty"class="form-control" placeholder="Faculty">
     </div>
   </div>
   <div class="form-row">
    <div class="col">
-      <input type="text" required="required" id="department"  name="department"class="form-control" placeholder="Department">
+      <input type="text" required="required" id="department"   name="department"class="form-control" placeholder="Department">
     </div>
     <div class="col">
       <input type="text" required="required" id="programme"  name="programme"class="form-control" placeholder="programme">
@@ -128,12 +192,12 @@ $hod_qualification ="B.Tech Computer Science";
       <input type="text" id="vcLame" name="vcLname" required="required"class="form-control" placeholder=" Surname">
       </div>
     <div class="col">
-      <input type="text" id="vcOname" name="vcOname" required="required"class="form-control" placeholder="Other name">
+      <input type="text" id="vcOname" name="vcOname" class="form-control" placeholder="Other name">
       </div>
   </div>
   <div class="form-row">
     <div class="col">
-      <input type="email" id="email" name="vcFname" required="required" class="form-control" placeholder="Email">
+      <input type="email" id="email" name="email" required="required" class="form-control" placeholder="Email">
       </div>
       <div class="col">
       <input type="text" id="phone" name="phone" required="required"class="form-control" placeholder="Phone Number">
@@ -164,7 +228,9 @@ $hod_qualification ="B.Tech Computer Science";
 <!-- first row closing tag-->
 </div>
 <!-- first div closing tag-->
+<?php require ('footer.inc');
+$_SESSION["msg"]='';
+?>
 </div>
 <!-- Container closing tag-->
-</div>
-<?php require ('footer.inc');?>
+
