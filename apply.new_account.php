@@ -1,7 +1,7 @@
 
 <?php
 $_SESSION["msg"]="";
-	 require ('header1.inc');
+	 require ('mainHeader.inc');
 ?>
 <div class="container-fluid">
 <!-- first div start here-->

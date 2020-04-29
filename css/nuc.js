@@ -114,3 +114,45 @@ function lawNo(){
      }
      }
      
+     function myProgramme(accID){
+          
+         if (window.XMLHttpRequest) {
+            // code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            // code for IE6, IE5
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                location.href ="request.php";
+        
+            }
+        };
+        xmlhttp.open("GET","selectSchool.php?accID="+accID,true);
+        xmlhttp.send();
+     
+     }
+    
+     function approveProgramme(programmeID,hodID){
+        
+         if (window.XMLHttpRequest) {
+            // code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            // code for IE6, IE5
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                location.href ="request.php";
+               document.getElementById('txt').innerHTML = xmlhttp.responseText;
+            }
+        };
+        var accDate = document.getElementById(hodID).value;
+        var urlString= "?pID="+programmeID;
+         urlString+="&accDate="+accDate
+        xmlhttp.open("GET","approveProgramme.php"+urlString,true);
+        xmlhttp.send();
+  
+     }

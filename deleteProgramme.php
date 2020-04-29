@@ -14,6 +14,5 @@ $sql = "DELETE FROM `hods_account` WHERE accreditationID ='$accreditationID' AND
              if (!mysqli_query($db_link,$sql)){
   echo die("Faild  to check the existance of programmes" . mysqli_error($db_link));    
 }
- echo'Deleted Sucessfuly';
-
+ 
 ?>

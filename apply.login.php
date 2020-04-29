@@ -1,4 +1,4 @@
-<?php require ('header1.inc');
+<?php require ('mainHeader.inc');
  
 ?>
 <div class="container-fluid">

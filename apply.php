@@ -31,7 +31,6 @@ if(mysqli_num_rows(mysqli_query($db_link,$sql)) > 0){
     }
    
 }
-
 ?>
 <div class="container-fluid">
 <!-- first div start here-->
@@ -85,7 +84,7 @@ if ($numRow >0 ){
 $result2 = mysqli_query($db_link,$sql2);
 $fetch2=mysqli_fetch_assoc($result2); 
         
-        $faculty =$fetch['faculty'];
+$faculty =$fetch['faculty'];
 $department=$fetch["department"];;	
 $programme =$fetch["programme"];;
 $status=$fetch["status"];
@@ -119,7 +118,6 @@ $hod_qualification =$fetch2["qualification"];
     }
    
  echo'</table>';
-
 ?>
 
  

@@ -90,7 +90,6 @@ if ($status =='submited'){
           <a class="dropdown-item"id="dropdown-item3" href="apply.login.php">VC/HOD Login Area</a>
             </div>
             </li>
-            
       <li class="nav-item">
         <a class="nav-link" onmouseover="showDropDown()" href="#"style="color: white;" >DIRECTORATES</a>
       </li>
@@ -105,11 +104,8 @@ if ($status =='submited'){
         <a class="nav-link" href="#" style="color: white;">CONTACT US</a>
       </li>
              
-      
     </ul>
  
        </div>
 </nav>
   </div>
-
-

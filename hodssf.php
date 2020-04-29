@@ -1,5 +1,84 @@
+<?php require ('header1.inc');
+$accreditationID=$_SESSION['accreditationID'];
+$hodID=$_SESSION['hodID'];
+function input_check($data){ 
+    $data=trim($data);
+    $data=stripslashes($data);
+    $data=htmlspecialchars($data);
+    return($data);
+    }
+    
+    include_once("connection.php");
+mysqli_select_db($db_link,"nucaccreditation") or die("Could not select database");
+            
+             /* Performing SQL query */
+  $sql = "SELECT * FROM `programmeinfo_ssf` WHERE accreditationID= '$accreditationID'";
+             if (!mysqli_query($db_link,$sql)){die("Faild  to check the existance of Vc's self study form" . mysqli_error($db_link));}
 
-<?php require ('header1.inc');?>
+if(mysqli_num_rows(mysqli_query($db_link,$sql)) > 0){
+$result = mysqli_query($db_link,$sql);
+$fetch=mysqli_fetch_assoc($result);
+  
+$title1 = $fetch["programmeTitle"]; 
+$type1 = $fetch["accreditationType"];
+$faculty1 = $fetch["faculty"];
+$department1 = $fetch["department"];
+$deanName1 = $fetch["deanName"]; 
+$dQualification1 = $fetch["deanQualification"];
+$hodName1 = $fetch["hodName"];
+$hQualification1=$fetch["hodQualification"];  
+}
+else{
+ $title1 = '';
+ $type1 = '';
+ $faculty1 = '';
+ $department1 = '';
+ $deanName1 = '';
+ $dQualification1 = '';
+ $hodName1 = '';
+ $hQualification1 = '';
+}
+
+  if($_SERVER["REQUEST_METHOD"]=="POST"){
+    $programmeID = rand(1,1000000);
+       $title=  input_check($_POST["title"]);
+       $faculty=  input_check($_POST["faculty"]);
+       $department=  input_check($_POST["department"]);
+       $pdate=  input_check($_POST["pdate"]);
+       $type=  input_check($_POST["type"]);
+       $dFname=  input_check($_POST["dFname"]);
+       $dQualification=  input_check($_POST["dqualification"]);
+       $hFname=  input_check($_POST["hFname"]);
+       $hQualification=  input_check($_POST["hqualification"]);
+   
+                 
+             /* Performing SQL query */
+  $sql = "SELECT * FROM `programmeinfo_ssf` WHERE accreditationID= '$accreditationID'AND hodID='$hodID'";
+if (!mysqli_query($db_link,$sql)){die("Faild  to check the existance of Vc's self study form" . mysqli_error($db_link));}
+
+if(mysqli_num_rows(mysqli_query($db_link,$sql)) > 0){
+   $sql= "UPDATE `programmeinfo_ssf` SET `programmeTitle` ='$title',`accreditationType` ='$type',`faculty`='$faculty',`department`='$department',
+   `dateEstablished`='$cdate',`deanName`='$dFname',`deanQualification`='$dQualification',`hodName`='$hFname',`hodQualification`='$hQualification'
+    WHERE `accreditationID`='$accreditationID'";
+ if(!mysqli_query($db_link,$sql)){die("Faild  to update programme information" . mysqli_error($db_link)); }
+/* Closing connection */
+mysqli_close($db_link);
+header('location:hodssf1.php');
+}
+else{
+  
+$sql = "INSERT INTO `programmeinfo_ssf`(`programmeID`, `accreditationID`, `programmeTitle`, `accreditationType`, `faculty`, `department`, `visitedBefore`,
+ `dateEstablished`, `deanName`, `deanQualification`, `hodName`, `hodQualification`, `programmehistory`, `programmeAdministration`, `studentsWelfare`,
+  `academicAtmosphere`, `dateSubmited`, `officerFname`, `officerSurname`, `officerOname`, `rank`, `submissionStatus`) VALUES ('$programmeID','$accreditationID','$title',
+  '$type','$faculty','$department','','$cdate','$dFName','$dQualification','$hFname','$hQualification','','','','','',
+  '','','','','')";
+if (!mysqli_query($db_link,$sql)){die("Faild  to insert programme information" . mysqli_error($db_link));}
+/* Closing connection */
+mysqli_close($db_link);
+header('location:hodssf1.php');
+}
+}
+?>
 <div class="container-fluid">
 <!-- first div start here-->
 <div class="col card" >
@@ -23,19 +102,19 @@
 <form>
     <div class="form-row">
     <div class="col">
-      <input type="text" required="required" id="faculty"  name="faculty"class="form-control" placeholder="Title of programme/sub-discipline/discipline to be accredited ">
+      <input type="text" required="required" id="faculty" name="title"  value="<?php echo $title1 ;?>" class="form-control" placeholder="Title of programme/sub-discipline/discipline to be accredited ">
     </div>
   </div>
   <div class="form-row">
   <div class="col">
-      <select id="owner" class="form-control" name="accreditationType">
+      <select id="owner" class="form-control" name="type">
         <option selected>Select Accreditation Type</option>
         <option>Initial Accreditation</option>
         <option>Re-accreditation</option>
       </select>
     </div>
     <div class="col">
-      <input type="text" required="required" id="faculty"  name="school"class="form-control" placeholder="Name of Faculty/School/College">
+      <input type="text" required="required" id="faculty" value="<?php echo $faculty1 ;?>"  name="faculty"class="form-control" placeholder="Name of Faculty/School/College">
     </div>
   </div>
       
@@ -54,11 +133,11 @@ Programme/sub-discipline/discipline can be accredited? <label class="form-check-
   </div>
   <div class="form-row">
       <div class="col">
-      <input type="text" required="required" id="department"  name="department"class="form-control" placeholder="Department">
+      <input type="text" required="required" id="department" value="<?php echo $department1 ;?>"  name="department" class="form-control" placeholder="Department">
   </div>
      <label for="pdate" >Date Established </label>
      <div class="col">
-      <input type="date" class="form-control" placeholder="Established Date" id="pdate"name="pdate">
+      <input type="date" class="form-control" value="<?php echo $cdate1 ;?>" placeholder="Established Date" id="pdate"name="pdate">
     
     </div>
   </div>
@@ -83,33 +162,28 @@ Programme/sub-discipline/discipline can be accredited? <label class="form-check-
 </div>
   <div class="form-row">
     <div class="col">
-      <input type="text" id="dFame" name="dFname" required="required" class="form-control" placeholder="Dean's Full name">
+      <input type="text" id="dFame" name="dFname" required="required" value="<?php echo $deanName1 ;?>"  class="form-control" placeholder="Dean's Full name">
       </div>
       <div class="col">
-      <input type="text" id="dqualification" name="dqualification" required="required"class="form-control" placeholder=" Dean's Quqlification(s)">
+      <input type="text" id="dqualification" name="dqualification" required="required" value="<?php echo $dQualification1 ;?>" class="form-control" placeholder=" Dean's Quqlification(s)">
       </div>
   </div>
   
   <div class="form-row">
     <div class="col">
-     <input type="text" id="hFame" name="hFname" required="required" class="form-control" placeholder="HOD's Full name">
+     <input type="text" id="hFame" name="hFname" required="required" class="form-control" value="<?php echo $hodName1 ;?>"  placeholder="HOD's Full name">
       </div>
       <div class="col">
-       <input type="text" id="hqualification" name="hqualification" required="required"class="form-control" placeholder=" HOD's Quqlification(s)">
+       <input type="text" id="hqualification" name="hqualification" required="required"class="form-control" value="<?php echo $hQualification1 ;?>"  placeholder=" HOD's Quqlification(s)">
      </div>
 </div>
-<div class="form-row">
-      <label class="col"id="msg" style="color: red;margin:auto ;text-align: center;">Click Save before you procced!</label>
-      </div>
 
 </div>
  
  <div class="form-row">
+
  <div class="col">
-<button type="submit" class="btn btn-primary login-btn" style="margin-left: 6%;width: 95%; ">Save</button>
- </div>
- <div class="col">
-<a class="btn btn-primary login-btn" href="hodssf1.php" style="float: right;margin-right: 4%; width: 95%; ">Next</a>
+<button type="submit" class="btn btn-primary login-btn" style="margin-left: 6%;width: 88%; ">Next</button>
  </div>
  </div>
 

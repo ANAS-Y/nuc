@@ -85,11 +85,4 @@
  
        </div>
 </nav>
-<!-- header image start here-->
-<div class=" media-body" >
-
-<img src="images/nuc_secretariat.png" alt="nuc Secretariat picture" width="100%" height="auto" />
-</div>
   </div>
-  <?php	
-?>
