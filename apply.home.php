@@ -1,13 +1,13 @@
 
 <?php 
-require ('mainHeader.inc');
+require ('header1.inc');
 ?>
 <div class="container-fluid">
 <!-- first div start here-->
 <div class="col card" >
 <!-- first div title-->
 <div class="card-title "  >
-<h3 style="text-align: center; color: red;" ><strong>ACCREDITATION REQUEST ALREADY SUBMITED</strong></h3>
+<h3 style="text-align: center; color: red;" ><strong>ACCREDITATION REQUEST SUBMITED</strong></h3>
 
 <div class="alert">
 <h3 id="msg" style="text-align: center; color: red;" class="alert-link" ><?php echo $_SESSION["msg"];?></h3>
@@ -18,7 +18,7 @@ require ('mainHeader.inc');
 <div class="col" >
 <div class=" card form-category"   >
 <div class="form-row">
-      <label class="col"id="msg" style="color: red;margin-left: 8%; font-size: 25px;">Please bear with us! We are reviewing your request we would contact you
+      <label class="col"id="msg" style="color: red;margin-left: 8%; font-size: 25px;">Please bear with us! We are reviewing your Accreditation request we would contact you
        Very Soon.<br/> Thank you.</label>
       </div>
  

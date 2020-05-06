@@ -1,6 +1,5 @@
-
 <?php 
-session_start();
+require ('header1.inc');
 include_once("connection.php");
 $accreditationID = $_SESSION["accreditationID"];
 mysqli_select_db($db_link,"nucaccreditation") or die("Could not select database");
@@ -15,7 +14,6 @@ if(mysqli_num_rows(mysqli_query($db_link,$sql)) > 0){
     $_SESSION["msg"]= "ACCREDITATION REQUEST ALREADY SUBMITED";
     header('location:apply.home.php');
 }
-require ('header1.inc');
 ?>
 <div class="container-fluid">
 <!-- first div start here-->
@@ -62,7 +60,7 @@ require ('header1.inc');
       <input type="text" id="vcFame" name="vcFname" required="required" class="form-control" placeholder="First name">
       </div>
       <div class="col">
-      <input type="text" id="vcLame" name="vcLname" required="required"class="form-control" placeholder=" Surname">
+      <input type="text" id="vcLame" name="vcLname" required="required" class="form-control" placeholder=" Surname">
       </div>
     <div class="col">
       <input type="text" id="vcOname" name="vcOname" class="form-control" placeholder="Other name">

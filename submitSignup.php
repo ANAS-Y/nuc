@@ -36,13 +36,13 @@ include_once("connection.php");
 mysqli_select_db($db_link,"nucaccreditation") or die("Could not select database");
             
              /* Performing SQL query */
-  $sql = "SELECT * FROM universityinfo_ssf WHERE accreditationID= '$accreditationID'";
+  $sql = "SELECT * FROM vcinformation_ssf WHERE email= '$email' ";
              if (!mysqli_query($db_link,$sql)){
   die("Faild  to check the existance of request" . mysqli_error($db_link));    
 }
 
 if(mysqli_num_rows(mysqli_query($db_link,$sql)) > 0){
-    $_SESSION["msg"]= "ACCREDITATION REQUEST ALREADY EXIST";
+    $_SESSION["msg"]= "ACCREDITATION REQUEST WITH THESAME VC's EMAIL ALREADY EXIST";
 }
 else{
   
@@ -62,12 +62,10 @@ if (!mysqli_query($db_link,$sql)){
  if(!mysqli_query($db_link,$sql)){
      die("Faild  to insert VC information" . mysqli_error($db_link));
       }
-   $_SESSION["accreditationID"]= $accreditationID;
-   $_SESSION["loginStatus"]= "login";
-   $_SESSION["position"]= "VC";
-/* Closing connection */
+   /* Closing connection */
 mysqli_close($db_link);
-header('location:apply.php');
+$_SESSION["msg"]="Registration Completed Sucessfully, Please login To Continue";
+header('location:apply.login.php');
 
              }
 }

@@ -1,4 +1,4 @@
-<?php require ('header1.inc');
+<?php require ('vcheader1.inc');
 $accreditationID=$_SESSION['accreditationID'];
 function input_check($data){ 
     $data=trim($data);
@@ -117,7 +117,7 @@ header('location:ssf.home.php');
        </div>
   <div class="form-row">
   <div class="form-row" style="margin-left:0%;">
-      <div class="col"><input type="checkbox"  checked="checked" name="remember"> <label for="remeber" >I Confirmed that the Information
+      <div class="col"><input type="checkbox"  required="required" name="remember"> <label for="remeber" >I Confirmed that the Information
       provided Here are correct</label></div>
      
     </div>

@@ -1,5 +1,5 @@
 
-<?php require ('header1.inc');
+<?php require ('vcheader1.inc');
 $accreditationID=$_SESSION["accreditationID"];
 ?>
 <?php

@@ -3,24 +3,19 @@
    if( $_SESSION["loginStatus"]!="login"){
         header('location:apply.login.php');
    }
-else{
-    
-}
+elseif($_SESSION['position']=='VC'){
+           header('location:apply.php'); 
+        }
  
 $accreditationID=$_SESSION['accreditationID'];
+$hodID=$_SESSION['hodID'];
 include_once("connection.php");
             /* Performing SQL query */
-$sql = "SELECT * FROM vcselfstudy_ssf WHERE accreditationID= '$accreditationID'";
+$sql = "SELECT * FROM programmeinfo_ssf  WHERE accreditationID= '$accreditationID' AND hodID ='$hodID' AND submissionStatus ='submited' ";
 if (!mysqli_query($db_link,$sql)){die("Faild  to check the existance of Vc's self study form" . mysqli_error($db_link));}
 
 if(mysqli_num_rows(mysqli_query($db_link,$sql)) > 0){
-$result = mysqli_query($db_link,$sql);
-$fetch = mysqli_fetch_assoc($result);
-
-$status = $fetch["submissonStatus"];
-if ($status =='submited'){
-   //header('location:ssf.home.php');
-   }
+header('location:ssf.home.php');
    }  
 ?>
 <!doctype html>

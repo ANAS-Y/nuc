@@ -21,7 +21,7 @@ require ('admin.header.inc');
       </div>
  <div class="form-row">
  <div class="col alert">
-<a class="btn btn-primary login-btn"  href="<?php echo $ahref;?>" style="float: right; width: 100%; ">Download</a>
+<a class="btn btn-primary login-btn"  href="#" style="float: right; width: 100%; ">Download</a>
  </div>
  </div>
 

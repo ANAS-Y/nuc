@@ -1,4 +1,4 @@
-<?php require ('header1.inc');
+<?php require ('vcheader1.inc');
 $accreditationID=$_SESSION['accreditationID'];
 function input_check($data){ 
     $data=trim($data);
@@ -66,7 +66,6 @@ mysqli_close($db_link);
 header('location:vcssf5.php');
 }
 }
-
 ?>
 <div class="container-fluid">
 <!-- first div start here-->

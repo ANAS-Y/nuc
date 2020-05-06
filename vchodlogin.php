@@ -39,6 +39,7 @@ $accreditationID =$fetch["accreditationID"];
 $_SESSION['accreditationID']=$accreditationID;
 $_SESSION["position"]='HOD';
 $_SESSION["loginStatus"]='login';
+$_SESSION["hodID"]=$fetch["hodID"];
 header('location:apply.php');
 }
 else{

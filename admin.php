@@ -21,6 +21,7 @@ $fetch =mysqli_fetch_assoc($result);
 mysqli_close($db_link);
 $_SESSION["position"]='admin';
 $_SESSION["loginStatus"]='login';
+$_SESSION['accID'] ="";
 header('location:admin.home.php');
 } 
 else{

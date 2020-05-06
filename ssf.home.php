@@ -35,9 +35,8 @@ if (!mysqli_query($db_link,$sql)){die("Faild  to check the existance of Vc's sel
 
 if(mysqli_num_rows(mysqli_query($db_link,$sql)) > 0){
 $result = mysqli_query($db_link,$sql);
-$fetch = mysqli_fetch_assoc($result);
-
-$status = $fetch["submissonStatus"];
+while($fetch = mysqli_fetch_assoc($result)){
+$status = $fetch["submissionStatus"];
 if ($status =='submited'){
     $ahref1='#';
     $notice1 = 'THE SELF-STUDY FORM SECTION "B" HAS BEEN SUBMITED';
@@ -49,11 +48,16 @@ $notice1 = 'THE SELF-STUDY FORM SECTION "B" NOT SUBMITED  YET! THE HEAD OF DEPAR
 $buttonText1 = ' Self-Study Form Section B not Yet Submited Click here to CONTINUE';
 }
 }
+$result->close();
+}
 else{
 $ahref1='hodssf.php';
 $notice1 = 'THE SELF-STUDY FORM SECTION "B" NOT SUBMITED  YET! THE HEAD OF DEPARTMENTS SHOULD TRY AND SUBMIT THEIR FORMS IN TIME';
 $buttonText1 = ' Self-Study Form Section B not Yet Submited Click here to CONTINUE';
 }
+
+
+
 ?>
 <div class="container-fluid">
 <!-- first div start here-->

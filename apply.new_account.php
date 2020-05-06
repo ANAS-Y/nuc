@@ -84,7 +84,7 @@ $_SESSION["msg"]="";
       <input type="text" id="vcLame" name="vcLname" required="required"class="form-control" placeholder=" Surname">
       </div>
     <div class="col">
-      <input type="text" id="vcOname" name="vcOname" required="required"class="form-control" placeholder="Other name">
+      <input type="text" id="vcOname" name="vcOname" class="form-control" placeholder="Other name">
       </div>
   </div>
   <div class="form-row">

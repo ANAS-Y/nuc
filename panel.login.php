@@ -1,4 +1,35 @@
-<?php require ('header1.inc');?>
+<?php require ('mainHeader.inc');
+if($_SERVER["REQUEST_METHOD"]=="POST"){
+    function input_check($data){ 
+    $data=trim($data);
+    $data=stripslashes($data);
+    $data=htmlspecialchars($data);
+    return($data);
+}
+$email =  input_check($_POST["email"]);
+$password = input_check($_POST["psw"]);
+ 
+include_once("connection.php");
+            /* Performing SQL query */
+$sql = "SELECT * FROM `panelmembers`  email ='$email' AND password ='$password'";
+if (!mysqli_query($db_link,$sql)){
+    die("Faild  to check email" . mysqli_error($db_link));
+   }   
+$result = mysqli_query($db_link,$sql);
+if(mysqli_num_rows($result) > 0){
+$fetch =mysqli_fetch_assoc($result);
+mysqli_close($db_link);
+$_SESSION["position"]='admin';
+$_SESSION["loginStatus"]='login';
+$_SESSION['accID'] ="";
+header('location:admin.home.php');
+} 
+else{
+    mysqli_close($db_link);
+  $_SESSION["msg"]= ' Incorrect Email or Password'; 
+}
+}  
+?>
 <div class="container-fluid">
 <!-- first div start here-->
 <div class="col card" >

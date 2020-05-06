@@ -1,4 +1,4 @@
-<?php require ('header1.inc');
+<?php require ('hodheader1.inc');
 $accreditationID=$_SESSION['accreditationID'];
 $hodID=$_SESSION['hodID'];
 function input_check($data){ 
@@ -12,7 +12,7 @@ function input_check($data){
 mysqli_select_db($db_link,"nucaccreditation") or die("Could not select database");
             
              /* Performing SQL query */
-  $sql = "SELECT * FROM `programmeinfo_ssf` WHERE accreditationID= '$accreditationID'";
+  $sql = "SELECT * FROM `programmeinfo_ssf` WHERE accreditationID= '$accreditationID' AND hodID ='$hodID'";
              if (!mysqli_query($db_link,$sql)){die("Faild  to check the existance of Vc's self study form" . mysqli_error($db_link));}
 
 if(mysqli_num_rows(mysqli_query($db_link,$sql)) > 0){
@@ -58,7 +58,7 @@ if (!mysqli_query($db_link,$sql)){die("Faild  to check the existance of Vc's sel
 
 if(mysqli_num_rows(mysqli_query($db_link,$sql)) > 0){
    $sql= "UPDATE `programmeinfo_ssf` SET `programmeTitle` ='$title',`accreditationType` ='$type',`faculty`='$faculty',`department`='$department',
-   `dateEstablished`='$cdate',`deanName`='$dFname',`deanQualification`='$dQualification',`hodName`='$hFname',`hodQualification`='$hQualification'
+   `dateEstablished`='$pdate',`deanName`='$dFname',`deanQualification`='$dQualification',`hodName`='$hFname',`hodQualification`='$hQualification'
     WHERE `accreditationID`='$accreditationID'";
  if(!mysqli_query($db_link,$sql)){die("Faild  to update programme information" . mysqli_error($db_link)); }
 /* Closing connection */
@@ -69,9 +69,8 @@ else{
   
 $sql = "INSERT INTO `programmeinfo_ssf`(`programmeID`, `accreditationID`, `programmeTitle`, `accreditationType`, `faculty`, `department`, `visitedBefore`,
  `dateEstablished`, `deanName`, `deanQualification`, `hodName`, `hodQualification`, `programmehistory`, `programmeAdministration`, `studentsWelfare`,
-  `academicAtmosphere`, `dateSubmited`, `officerFname`, `officerSurname`, `officerOname`, `rank`, `submissionStatus`) VALUES ('$programmeID','$accreditationID','$title',
-  '$type','$faculty','$department','','$cdate','$dFName','$dQualification','$hFname','$hQualification','','','','','',
-  '','','','','')";
+  `academicAtmosphere`, `dateSubmited`, `officerFname`, `officerSurname`, `officerOname`, `rank`, `submissionStatus`,`hodID` ) VALUES ('$programmeID','$accreditationID','$title',
+  '$type','$faculty','$department','','$cdate','$dFName','$dQualification','$hFname','$hQualification','','','','','','','','','','$hodID')";
 if (!mysqli_query($db_link,$sql)){die("Faild  to insert programme information" . mysqli_error($db_link));}
 /* Closing connection */
 mysqli_close($db_link);
@@ -99,7 +98,7 @@ header('location:hodssf1.php');
 <div class="card-title " >
 <h5 style="text-align: center;">PROGRAMME TO BE ACCREDITED</h5>
 </div>
-<form>
+<form method="post" enctype="multipart/form-data" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF'])?>">
     <div class="form-row">
     <div class="col">
       <input type="text" required="required" id="faculty" name="title"  value="<?php echo $title1 ;?>" class="form-control" placeholder="Title of programme/sub-discipline/discipline to be accredited ">

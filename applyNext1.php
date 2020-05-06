@@ -44,19 +44,16 @@ $sql = "INSERT INTO `programme_apply`(`accreditationID`, `pID`, `faculty`, `depa
  `programme`, `dateEstablished`, `status`,`hodID`)
  VALUES ('$accreditationID','$newpID','$faculty','$department','$programme','$establishDate','$status','$sword')";
 
-if (!mysqli_query($db_link,$sql)){
-    die("Faild  to insert university details" . mysqli_error($db_link));    
-}
+if (!mysqli_query($db_link,$sql)){ die("Faild  to insert programme details" . mysqli_error($db_link));}
 
  $sql= "INSERT INTO `hods_account`(`accreditationID`, `surname`, `otherName`, `firstName`, 
  `telephone`, `qualification`, `email`, `password`,`hodID`)
   VALUES ('$accreditationID','$Lname','$Oname','$Fname','$phone','$Qualification','$email','$password','$sword')";
- if(!mysqli_query($db_link,$sql)){
-     die("Faild  to insert HOD information" . mysqli_error($db_link));
-      }
+ if(!mysqli_query($db_link,$sql)){die("Faild  to insert HOD information" . mysqli_error($db_link));}
+ 
 /* Closing connection */
 mysqli_close($db_link);
-$_SESSION["msg"]= "PROGRAMME DETAILS SAVED SUCESSFULLY, YOU CAN ADD ANOTHER PROGRAMME";
+$_SESSION["msg"]= "PROGRAMME DETAILS SAVED SUCESSFULLY,YOU CAN ADD ANOTHER PROGRAMME";
 header('location:apply.php');
  
              }
