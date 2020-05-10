@@ -1,14 +1,17 @@
 <?php
 	session_start();
-
    if( $_SESSION["loginStatus"]!="login"){
-        header('location:admin.php');
+        header('location:panel.login.php');
    }
+else{ 
+    if( $_SESSION["position"]!="Member"){ 
+        header('location:panelpef.summary.php');
+    }
     else{
-        if($_SESSION['position']!='admin'){
-           header('location:admin.php'); 
-        }
-    }  
+        
+    }
+    
+}
 ?>
 <!doctype html>
 <html lang="en">
@@ -35,7 +38,7 @@
   
    <!-- Top navbar with a marquee start here-->
      <div class="container-fluid topnav" > 
-     <a href="adminLogOut.php" style="text-decoration: none; color:white;margin-left: 95%;">Log out</a>
+     <a href="panelLogOut.php" style="text-decoration: none; color:white;margin-left: 95%;">Log out</a>
      </div>
      
   <nav class="navbar navbar-expand-lg navbar-light">
@@ -51,48 +54,46 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="panel.members.php" style="color: white;">ADD PANEL MEMBERS <span class="sr-only"></span></a>
+        <a class="nav-link" href="index.php" style="color: white;">HOME <span class="sr-only">(current)</span></a>
       </li>
-      
-       <li class="nav-item ">
-        <a class="nav-link" href="panelRemoveMember.php" style="color: white;">REMOVE PANEL MEMBERS <span class="sr-only"></span></a>
-      </li>
-    
+     <li class="nav-item dropdown" >
+        <a class="nav-link dropdown-toggle" style="color: white;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          ABOUT US</a>   
+        <div class="dropdown-menu"  id="aboutID" aria-labelledby="navbarDropdown" onmouseover="showDropDown()" >
+          <a class="dropdown-item" id="dropdown-item" href="aboutUs.php">About Us</a>
+          <a class="dropdown-item"id="dropdown-item2" href="boardMembers.php">NUC Board Members</a>
+            </div>
+            </li>
         <li class="nav-item dropdown" >
         <a class="nav-link dropdown-toggle" onclick="showDropDown()" style="color: white;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           ACCREDITATION</a>   
         <div class="dropdown-menu" id="accID" aria-labelledby="navbarDropdown" >
         <a href="#" class="divider"></a>
-          <a class="dropdown-item" id="dropdown-item" href="request.php">Accept/Reject Accreditation Request</a>
+          <a class="dropdown-item" id="dropdown-item" href="apply.new_account.php">Apply For Accreditation</a>
+          <a href="#" class="divider"></a>
+          <a class="dropdown-item"id="dropdown-item2" href="apply.login.php">Submit Self-Study Form (NUC/SSF)</a>
+          <a class="dropdown-item"id="dropdown-item2" href="#">View Accreditation Status</a>
           <div class="divider dropdown-item"></div>
-          <a class="dropdown-item"id="dropdown-item2" href="#">Assign Accreditation Status)</a>
-          <a class="dropdown-item"id="dropdown-item2" href="#">View Accreditation Status)</a>
-
-           </div>
+          <a class="dropdown-item"id="dropdown-item3" href="panel.login.php">Accreditation Panel Login Area</a>
+          <a class="dropdown-item"id="dropdown-item3" href="apply.login.php">VC/HOD Login Area</a>
+            </div>
             </li>
-            
-       <li class="nav-item dropdown" >
-        <a class="nav-link dropdown-toggle" onclick="showDropDown()" style="color: white;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          PRINT SUBMITED FORMS</a>   
-        <div class="dropdown-menu" id="accID" aria-labelledby="navbarDropdown" >
-        <a href="#" class="divider"></a>
-          <a class="dropdown-item" id="dropdown-item" href="#">Print Submited Self-Study Form</a>
-          <div class="divider dropdown-item"></div>
-          <a class="dropdown-item"id="dropdown-item2" href="#">Print Submited Accreditation Request Form</a>
-          <a class="dropdown-item"id="dropdown-item2" href="#">Print Submited Panel Report Form</a>
-          <a class="dropdown-item"id="dropdown-item2" href="#">Print Submited Accreditation Re-visitation Form</a>
-
-           </div>
-            </li>
+      <li class="nav-item">
+        <a class="nav-link" onmouseover="showDropDown()" href="#"style="color: white;" >DIRECTORATES</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#" style="color: white;">NIGERIAN UNIVERSITIES</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#" style="color: white;">PART TIME COURSES</a>
+      </li>
       
       <li class="nav-item">
-        <a class="nav-link" href="#" style="color: white;">DOWNLOAD SUBMITED FILES</a>
-      </li>         
-      
+        <a class="nav-link" href="#" style="color: white;">CONTACT US</a>
+      </li>
+             
     </ul>
  
        </div>
 </nav>
   </div>
-
-

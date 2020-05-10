@@ -54,7 +54,7 @@ mysqli_close($db_link);
     
      <div class="form-row">
     <div class="col" style="margin-left: 40%;color:blue;">
-     <span class="psw">Back to <a href="panel.login.php" style="color:red;"> login page</a></span>
+     <span class="psw">Back to <a href="apply.login.php" style="color:red;"> login page</a></span>
     </div>
     </div>
     

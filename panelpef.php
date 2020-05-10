@@ -1,5 +1,5 @@
 
-<?php require ('header1.inc');?>
+<?php require ('panelheader1.inc');?>
 <div class="container-fluid">
 <!-- first div start here-->
 <div class="col card" >
