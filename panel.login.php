@@ -18,11 +18,18 @@ $result = mysqli_query($db_link,$sql);
 if(mysqli_num_rows($result) > 0){
 $fetch =mysqli_fetch_assoc($result);
 $position =$fetch['position'];
-
-mysqli_close($db_link);
+$accreditationID =$fetch['accreditationID'];
+$_SESSION['ID'] =$fetch['ID'];
 $_SESSION["position"]=$position;
 $_SESSION["loginStatus"]='login';
-$_SESSION['accID'] ="";
+$_SESSION['accID'] =$accreditationID;
+$_SESSION['accreditationID'] =$accreditationID;
+
+if( $position == "Chairman" ){ 
+        header('location:cpanelpef.php');
+        exit();
+    }
+
 header('location:panelpef.php');
 } 
 else{

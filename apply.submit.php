@@ -1,5 +1,5 @@
 <?php 
-require ('header1.inc');
+require ('admin.header.inc');
 include_once("connection.php");
 $accreditationID = $_SESSION["accreditationID"];
 mysqli_select_db($db_link,"nucaccreditation") or die("Could not select database");
@@ -20,7 +20,7 @@ if(mysqli_num_rows(mysqli_query($db_link,$sql)) > 0){
 <div class="col card" >
 <!-- first div title-->
 <div class="card-title " >
-<h3 style="text-align: center;">ACCREDITATION REQUEST</h3>
+<h3 style="text-align: center;">REMAK AND DECLARATION</h3>
 </div>
   
 <div class="row" >
@@ -30,7 +30,7 @@ if(mysqli_num_rows(mysqli_query($db_link,$sql)) > 0){
 
 <form method="POST" action="submitApply.php">
     <div class="form-group">
-    <label for="aReasons">What are the reasons for requesting accreditation?</label>
+    <label for="aReasons">Remark/reasons for scheduling accreditation</label>
     <textarea class="form-control"  required="required" id="areasons" rows="7" name="reasons"></textarea>
   </div>
  
@@ -53,7 +53,7 @@ if(mysqli_num_rows(mysqli_query($db_link,$sql)) > 0){
 <div class="card form-category" >
 
 <div class="card-title ">
-<h5 style="text-align: center;">APPLICANT DECLARATION</h5>
+<h5 style="text-align: center;">ADMIN DECLARATION</h5>
 </div>
   <div class="form-row">
     <div class="col">

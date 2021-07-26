@@ -1,19 +1,19 @@
 <?php
 	session_start();
    if( $_SESSION["loginStatus"]!="login"){
-        header('location:apply.login.php');
+        header('location:vchodlogin.php');
    }
-elseif($_SESSION['position']=='HOD'){
-           header('location:apply.php'); 
+elseif($_SESSION['position']!=='VC'){
+           header('location:vchodlogin.php'); 
         }
 $accreditationID=$_SESSION['accreditationID'];
 include_once("connection.php");
             /* Performing SQL query */
-$sql = "SELECT * FROM vcselfstudy_ssf WHERE accreditationID= '$accreditationID' AND submissonStatus ='submited' ";
+$sql = "SELECT * FROM vcselfstudy_ssf WHERE submissonStatus = 'submited' AND accreditationID = '$accreditationID'";
 if (!mysqli_query($db_link,$sql)){die("Faild  to check the existance of Vc's self study form" . mysqli_error($db_link));}
 
 if(mysqli_num_rows(mysqli_query($db_link,$sql)) > 0){
-header('location:ssf.home.php');
+header('location:vcssf.submit.php');
    }  
 ?>
 <!doctype html>
@@ -57,44 +57,17 @@ header('location:ssf.home.php');
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="index.php" style="color: white;">HOME <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="vcssf.php" style="color: white;">GENERAL INFORMATION ON UNIVERSITY<span class="sr-only">(current)</span></a>
       </li>
-     <li class="nav-item dropdown" >
-        <a class="nav-link dropdown-toggle" style="color: white;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          ABOUT US</a>   
-        <div class="dropdown-menu"  id="aboutID" aria-labelledby="navbarDropdown" onmouseover="showDropDown()" >
-          <a class="dropdown-item" id="dropdown-item" href="aboutUs.php">About Us</a>
-          <a class="dropdown-item"id="dropdown-item2" href="boardMembers.php">NUC Board Members</a>
-            </div>
-            </li>
-        <li class="nav-item dropdown" >
-        <a class="nav-link dropdown-toggle" onclick="showDropDown()" style="color: white;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          ACCREDITATION</a>   
-        <div class="dropdown-menu" id="accID" aria-labelledby="navbarDropdown" >
-        <a href="#" class="divider"></a>
-          <a class="dropdown-item" id="dropdown-item" href="apply.new_account.php">Apply For Accreditation</a>
-          <a href="#" class="divider"></a>
-          <a class="dropdown-item"id="dropdown-item2" href="apply.login.php">Submit Self-Study Form (NUC/SSF)</a>
-          <a class="dropdown-item"id="dropdown-item2" href="#">View Accreditation Status</a>
-          <div class="divider dropdown-item"></div>
-          <a class="dropdown-item"id="dropdown-item3" href="panel.login.php">Accreditation Panel Login Area</a>
-          <a class="dropdown-item"id="dropdown-item3" href="apply.login.php">VC/HOD Login Area</a>
-            </div>
-            </li>
-      <li class="nav-item">
-        <a class="nav-link" onmouseover="showDropDown()" href="#"style="color: white;" >DIRECTORATES</a>
+      <li class="nav-item active">
+        <a class="nav-link" href="vcssf2.php" style="color: white;">ORGANISATION, ADMINISTRATION AND CONTRO<span class="sr-only">(current)</span></a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#" style="color: white;">NIGERIAN UNIVERSITIES</a>
+      <li class="nav-item active">
+        <a class="nav-link" href="vcssf2.php" style="color: white;">PHILOSOPhY,OBJECTIVES AND UTILITY SERVICES<span class="sr-only">(current)</span></a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#" style="color: white;">PART TIME COURSES</a>
-      </li>
-      
-      <li class="nav-item">
-        <a class="nav-link" href="#" style="color: white;">CONTACT US</a>
-      </li>
-             
+         <li class="nav-item active">
+        <a class="nav-link" href="checkstatus1.php" style="color: white;">CHECK ACCREDITATION STATUS<span class="sr-only">(current)</span></a>
+      </li>        
     </ul>
  
        </div>

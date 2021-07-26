@@ -1,6 +1,6 @@
 
 <?php require ('vcheader1.inc');
-$accreditationID=$_SESSION["accreditationID"];
+$accreditationID=$_SESSION['universityID'];
 ?>
 <?php
 	include_once("connection.php");
@@ -8,7 +8,7 @@ mysqli_select_db($db_link,"nucaccreditation") or die("Could not select database"
             
              /* Performing SQL query */
   $sql = "SELECT * FROM universityinfo_ssf,vcinformation_ssf
-   WHERE universityinfo_ssf.accreditationID ='$accreditationID' AND vcinformation_ssf.accreditationID= '$accreditationID'
+   WHERE universityinfo_ssf.universityID ='$accreditationID' AND vcinformation_ssf.universityID= '$accreditationID'
  ";
              if (!mysqli_query($db_link,$sql)){
   die("Faild  to check the existance of request" . mysqli_error($db_link));    
@@ -17,7 +17,7 @@ mysqli_select_db($db_link,"nucaccreditation") or die("Could not select database"
 if(mysqli_num_rows(mysqli_query($db_link,$sql)) > 0){
     $result = mysqli_query($db_link,$sql);
     $fetch=mysqli_fetch_assoc($result);
-   
+    
     $schoolName = $fetch["universityName"];
        $address = $fetch["universityAddress"];
        $telephone =$fetch["telephone"];
@@ -27,9 +27,6 @@ if(mysqli_num_rows(mysqli_query($db_link,$sql)) > 0){
        $proprietorPhone2 =$fetch["proprietorsTelephone2"];
        $parsuantLaw = $fetch["parsuantLaw"];
        $parsuantEstablishe = $fetch["parsuantEstablishe"];
-       
-       
-       
        $vcFname = $fetch["firstName"];
         $vcLname = $fetch["surname"];
         $vcOname = $fetch["otherName"];
@@ -123,7 +120,7 @@ if(mysqli_num_rows(mysqli_query($db_link,$sql)) > 0){
       <input type="text" id="vcLame" name="vcLname" value="<?php echo $vcLname ?>" required="required"class="form-control" placeholder=" Surname">
       </div>
     <div class="col">
-      <input type="text" id="vcOname" name="vcOname"value="<?php echo $vcOname  ?>"  required="required"class="form-control" placeholder="Other name">
+      <input type="text" id="vcOname" name="vcOname"value="<?php echo $vcOname  ?>"  class="form-control" placeholder="Other name">
       </div>
   </div>
   <div class="form-row">

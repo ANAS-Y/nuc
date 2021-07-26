@@ -1,7 +1,6 @@
 <?php 
-require ('header1.inc');
+require ('vcheader1.inc');
 $accreditationID=$_SESSION['accreditationID'];
-    
 include_once("connection.php");
             /* Performing SQL query */
 $sql = "SELECT * FROM vcselfstudy_ssf WHERE accreditationID= '$accreditationID'";

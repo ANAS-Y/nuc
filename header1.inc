@@ -1,27 +1,24 @@
 <?php
 	session_start();
+    $ID=$_SESSION['ID'];
+    include_once("connection.php");
    if( $_SESSION["loginStatus"]!="login"){
-        header('location:apply.login.php');
+        header('location:panel.login.php');
    }
-else{
+else{ 
+    if( $_SESSION["position"]="Member" OR $_SESSION["position"]="Chairman" ){ 
+$sql = "SELECT * FROM `panelreport` WHERE ID ='$ID' AND status='submited'";
+if (!mysqli_query($db_link,$sql)){die("Faild  to check panel Report" . mysqli_error($db_link));}
+if(mysqli_num_rows(mysqli_query($db_link,$sql)) > 0){ 
+ header('location:panelpef.submit.php');   
+}
+    }
+    else{
+        header('location:panel.login.php');
+    }
     
 }
- 
-$accreditationID=$_SESSION['accreditationID'];
-include_once("connection.php");
-            /* Performing SQL query */
-$sql = "SELECT * FROM vcselfstudy_ssf WHERE accreditationID= '$accreditationID'";
-if (!mysqli_query($db_link,$sql)){die("Faild  to check the existance of Vc's self study form" . mysqli_error($db_link));}
 
-if(mysqli_num_rows(mysqli_query($db_link,$sql)) > 0){
-$result = mysqli_query($db_link,$sql);
-$fetch = mysqli_fetch_assoc($result);
-
-$status = $fetch["submissonStatus"];
-if ($status =='submited'){
-   //header('location:ssf.home.php');
-   }
-   }  
 ?>
 <!doctype html>
 <html lang="en">
@@ -48,7 +45,7 @@ if ($status =='submited'){
   
    <!-- Top navbar with a marquee start here-->
      <div class="container-fluid topnav" > 
-     <a href="logOut.php" style="text-decoration: none; color:white;margin-left: 95%;">Log out</a>
+     <a href="panelLogOut.php" style="text-decoration: none; color:white;margin-left: 95%;">Log out</a>
      </div>
      
   <nav class="navbar navbar-expand-lg navbar-light">
@@ -64,46 +61,28 @@ if ($status =='submited'){
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="index.php" style="color: white;">HOME <span class="sr-only">(current)</span></a>
-      </li>
-     <li class="nav-item dropdown" >
-        <a class="nav-link dropdown-toggle" style="color: white;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          ABOUT US</a>   
-        <div class="dropdown-menu"  id="aboutID" aria-labelledby="navbarDropdown" onmouseover="showDropDown()" >
-          <a class="dropdown-item" id="dropdown-item" href="aboutUs.php">About Us</a>
-          <a class="dropdown-item"id="dropdown-item2" href="boardMembers.php">NUC Board Members</a>
-            </div>
-            </li>
-        <li class="nav-item dropdown" >
-        <a class="nav-link dropdown-toggle" onclick="showDropDown()" style="color: white;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          ACCREDITATION</a>   
-        <div class="dropdown-menu" id="accID" aria-labelledby="navbarDropdown" >
-        <a href="#" class="divider"></a>
-          <a class="dropdown-item" id="dropdown-item" href="apply.new_account.php">Apply For Accreditation</a>
-          <a href="#" class="divider"></a>
-          <a class="dropdown-item"id="dropdown-item2" href="apply.login.php">Submit Self-Study Form (NUC/SSF)</a>
-          <a class="dropdown-item"id="dropdown-item2" href="#">View Accreditation Status</a>
-          <div class="divider dropdown-item"></div>
-          <a class="dropdown-item"id="dropdown-item3" href="panel.login.php">Accreditation Panel Login Area</a>
-          <a class="dropdown-item"id="dropdown-item3" href="apply.login.php">VC/HOD Login Area</a>
-            </div>
-            </li>
-      <li class="nav-item">
-        <a class="nav-link" onmouseover="showDropDown()" href="#"style="color: white;" >DIRECTORATES</a>
+        <a class="nav-link" href="panelpef.php" style="color: white;">VISITATION DETAILS<span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#" style="color: white;">NIGERIAN UNIVERSITIES</a>
+        <a class="nav-link" onmouseover="showDropDown()" href="panelpef1.php"style="color: white;" >ADMISSION REQUIREMENTS </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#" style="color: white;">PART TIME COURSES</a>
+        <a class="nav-link" href="panelpef2.php" style="color: white;">STUDENTS COURSE EVALUATION </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="panelpef3.php" style="color: white;">ACADEMIC STAFF</a>
       </li>
       
       <li class="nav-item">
-        <a class="nav-link" href="#" style="color: white;">CONTACT US</a>
+        <a class="nav-link" href="panelpef4.php" style="color: white;">NON-TEACHING STAFF</a>
       </li>
+      
              
     </ul>
  
        </div>
 </nav>
+<p style="color: red;"><?php echo $_SESSION["msg"];?></p>
+
   </div>
+ 

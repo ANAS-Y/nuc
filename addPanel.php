@@ -1,7 +1,6 @@
 <?php 
 require ('admin.header.inc');   
 ?>
-<div class="container-fluid">
 <!-- first div start here-->
 <div class="col card" >
 <!-- first div title-->
@@ -146,6 +145,9 @@ rows="2" >Rejection reasons if rejected </textarea></td>
     $result->close();
     $result2->close();
     }
+    else{
+        echo'No Panel Member Added Yet';
+    }
    
  echo'</table>';
 $accreditationID ='';	
@@ -156,6 +158,7 @@ $accreditationID ='';
 
 </div>
 </div>
+
 </div>
 <!-- Container closing tag-->
 <?php require ('footer.inc');

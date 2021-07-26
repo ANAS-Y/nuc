@@ -1,9 +1,13 @@
 <?php
 
-
-session_unset();
-session_destroy();
-header('location:apply.login.php');
+$_SESSION["msg"]='';
+session_unset($_SESSION['accreditationID']);
+session_unset($_SESSION['universityID']);
+session_unset($_SESSION['ID']);
+session_unset($_SESSION["msg"]);
+session_unset($_SESSION["loginStatus"]);
+session_unset($_SESSION["position"]);
+session_destroy();header('location:apply.login.php');
 
 
 

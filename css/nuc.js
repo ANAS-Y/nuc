@@ -133,6 +133,61 @@ function lawNo(){
         xmlhttp.send();
      
      }
+     
+         function addProgramme(accID){
+     if (window.XMLHttpRequest) {
+            // code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            // code for IE6, IE5
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                document.getElementById('forms').style.visibility='visible';
+                //location.reload();
+                
+            }
+        };
+        xmlhttp.open("GET","addProgram.php?accID="+accID,true);
+        xmlhttp.send();     
+     }
+     
+      function viewProgramme(accID){
+     if (window.XMLHttpRequest) {
+            // code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            // code for IE6, IE5
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                                location.reload();
+                                    }
+        };
+        xmlhttp.open("GET","addProgram.php?accID="+accID,true);
+        xmlhttp.send();    
+     }
+     
+     function printPanel(accID){
+     if (window.XMLHttpRequest) {
+            // code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            // code for IE6, IE5
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                                window.top.location=window.top.location;
+                                 //document.getElementById('unName').innerHTML="nnnnnn";
+                                    }
+        };
+        xmlhttp.open("GET","panelprint3.php?accID="+accID,true);
+        xmlhttp.send();    
+     }
+     
     
      function approveProgramme(programmeID,hodID){
         
@@ -145,14 +200,14 @@ function lawNo(){
         }
         xmlhttp.onreadystatechange = function() {
             if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                location.href ="request.php";
-               document.getElementById('txt').innerHTML = xmlhttp.responseText;
+            document.getElementById('txt').innerHTML = xmlhttp.responseText;
+                location.href ="admin.home.php";
+               
             }
         };
-        var accDate = document.getElementById(hodID).value;
+        var accDate = document.getElementById(status).value;
         var urlString= "?pID="+programmeID;
          urlString+="&accDate="+accDate
         xmlhttp.open("GET","approveProgramme.php"+urlString,true);
         xmlhttp.send();
-  
      }

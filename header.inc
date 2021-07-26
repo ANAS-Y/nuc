@@ -25,8 +25,7 @@
   <div class="container-fluid navdiv" >
   
    <!-- Top navbar with a marquee start here-->
-     <div class="container-fluid topnav" > <marquee behavior="scroll" direction="left"><a href="#">Click here to View new Accreditated Programmes. 2 Undergradute and 1
-      post graduate program accredited at Federal University Gusau, on 12th March, 2020</a> </marquee>
+     <div class="container-fluid topnav" > 
      </div>
      
   <nav class="navbar navbar-expand-lg navbar-light">
@@ -44,7 +43,7 @@
       <li class="nav-item active">
         <a class="nav-link" href="index.php" style="color: white;">HOME <span class="sr-only">(current)</span></a>
       </li>
-     <li class="nav-item dropdown" >
+     <li class="nav-item " >
         <a class="nav-link dropdown-toggle" style="color: white;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           ABOUT US</a>   
         <div class="dropdown-menu"  id="aboutID" aria-labelledby="navbarDropdown" onmouseover="showDropDown()" >
@@ -52,30 +51,16 @@
           <a class="dropdown-item"id="dropdown-item2" href="boardMembers.php">NUC Board Members</a>
             </div>
             </li>
-        <li class="nav-item dropdown" >
-        <a class="nav-link dropdown-toggle" onclick="showDropDown()" style="color: white;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          ACCREDITATION</a>   
-        <div class="dropdown-menu" id="accID" aria-labelledby="navbarDropdown" >
-        <a href="#" class="divider"></a>
-          <a class="dropdown-item" id="dropdown-item" href="apply.login.php">Apply For Accreditation</a>
-          <a href="#" class="divider"></a>
-          <a class="dropdown-item"id="dropdown-item2" href="apply.login.php">Submit Self-Study Form (NUC/SSF)</a>
-          <a class="dropdown-item"id="dropdown-item2" href="#">View Accreditation Status</a>
-          <div class="divider dropdown-item"></div>
-          <a class="dropdown-item"id="dropdown-item3" href="panel.login.php">Accreditation Panel Login Area</a>
-            </div>
-            </li>
-            
-      <li class="nav-item">
-        <a class="nav-link" onmouseover="showDropDown()" href="#"style="color: white;" >DIRECTORATES</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#" style="color: white;">NIGERIAN UNIVERSITIES</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#" style="color: white;">PART TIME COURSES</a>
-      </li>
-      
+            <li class="nav-item ">
+        <a class="nav-link" id="dropdown-item2" href="apply.login.php" style="color: white;">VC/HOD LOGIN</a>
+           </li>
+             <li class="nav-item ">
+        <a class="nav-link" id="dropdown-item3" href="panel.login.php" style="color: white;">PANEL LOGIN </a>
+           </li>
+            <li class="nav-item ">
+        <a class="nav-link" id="dropdown-item3" href="checkstatus3.php" style="color: white;">CHECK ACCREDITATION STATUS</a>
+           </li>
+       
       <li class="nav-item">
         <a class="nav-link" href="#" style="color: white;">CONTACT US</a>
       </li>

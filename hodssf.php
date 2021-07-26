@@ -12,21 +12,16 @@ function input_check($data){
 mysqli_select_db($db_link,"nucaccreditation") or die("Could not select database");
             
              /* Performing SQL query */
-  $sql = "SELECT * FROM `programmeinfo_ssf` WHERE accreditationID= '$accreditationID' AND hodID ='$hodID'";
+  $sql = "SELECT * FROM `programme_apply` WHERE accreditationID= '$accreditationID' AND hodID ='$hodID'";
              if (!mysqli_query($db_link,$sql)){die("Faild  to check the existance of Vc's self study form" . mysqli_error($db_link));}
 
 if(mysqli_num_rows(mysqli_query($db_link,$sql)) > 0){
 $result = mysqli_query($db_link,$sql);
 $fetch=mysqli_fetch_assoc($result);
   
-$title1 = $fetch["programmeTitle"]; 
-$type1 = $fetch["accreditationType"];
+$title1 = $fetch["programme"]; 
 $faculty1 = $fetch["faculty"];
 $department1 = $fetch["department"];
-$deanName1 = $fetch["deanName"]; 
-$dQualification1 = $fetch["deanQualification"];
-$hodName1 = $fetch["hodName"];
-$hQualification1=$fetch["hodQualification"];  
 }
 else{
  $title1 = '';
@@ -54,7 +49,7 @@ else{
                  
              /* Performing SQL query */
   $sql = "SELECT * FROM `programmeinfo_ssf` WHERE accreditationID= '$accreditationID'AND hodID='$hodID'";
-if (!mysqli_query($db_link,$sql)){die("Faild  to check the existance of Vc's self study form" . mysqli_error($db_link));}
+if (!mysqli_query($db_link,$sql)){die("Faild  to checK Program" . mysqli_error($db_link));}
 
 if(mysqli_num_rows(mysqli_query($db_link,$sql)) > 0){
    $sql= "UPDATE `programmeinfo_ssf` SET `programmeTitle` ='$title',`accreditationType` ='$type',`faculty`='$faculty',`department`='$department',
@@ -69,8 +64,9 @@ else{
   
 $sql = "INSERT INTO `programmeinfo_ssf`(`programmeID`, `accreditationID`, `programmeTitle`, `accreditationType`, `faculty`, `department`, `visitedBefore`,
  `dateEstablished`, `deanName`, `deanQualification`, `hodName`, `hodQualification`, `programmehistory`, `programmeAdministration`, `studentsWelfare`,
-  `academicAtmosphere`, `dateSubmited`, `officerFname`, `officerSurname`, `officerOname`, `rank`, `submissionStatus`,`hodID` ) VALUES ('$programmeID','$accreditationID','$title',
-  '$type','$faculty','$department','','$cdate','$dFName','$dQualification','$hFname','$hQualification','','','','','','','','','','$hodID')";
+  `academicAtmosphere`, `dateSubmited`, `officerFname`, `officerSurname`, `officerOname`, `rank`, `submissionStatus`,`hodID` ) 
+  VALUES ('$programmeID','$accreditationID','$title','$type','$faculty','$department','','$pdate','$dFname',
+  '$dQualification','$hFname','$hQualification','','','','','','','','','','','$hodID')";
 if (!mysqli_query($db_link,$sql)){die("Faild  to insert programme information" . mysqli_error($db_link));}
 /* Closing connection */
 mysqli_close($db_link);
@@ -161,19 +157,19 @@ Programme/sub-discipline/discipline can be accredited? <label class="form-check-
 </div>
   <div class="form-row">
     <div class="col">
-      <input type="text" id="dFame" name="dFname" required="required" value="<?php echo $deanName1 ;?>"  class="form-control" placeholder="Dean's Full name">
+      <input type="text" id="dFame" name="dFname" required="required"   class="form-control" placeholder="Dean's Full name">
       </div>
       <div class="col">
-      <input type="text" id="dqualification" name="dqualification" required="required" value="<?php echo $dQualification1 ;?>" class="form-control" placeholder=" Dean's Quqlification(s)">
+      <input type="text" id="dqualification" name="dqualification" required="required" class="form-control" placeholder=" Dean's Quqlification(s)">
       </div>
   </div>
   
   <div class="form-row">
     <div class="col">
-     <input type="text" id="hFame" name="hFname" required="required" class="form-control" value="<?php echo $hodName1 ;?>"  placeholder="HOD's Full name">
+     <input type="text" id="hFame" name="hFname" required="required" class="form-control"   placeholder="HOD's Full name">
       </div>
       <div class="col">
-       <input type="text" id="hqualification" name="hqualification" required="required"class="form-control" value="<?php echo $hQualification1 ;?>"  placeholder=" HOD's Quqlification(s)">
+       <input type="text" id="hqualification" name="hqualification" required="required"class="form-control"   placeholder=" HOD's Quqlification(s)">
      </div>
 </div>
 
@@ -195,5 +191,6 @@ Programme/sub-discipline/discipline can be accredited? <label class="form-check-
 <!-- first div closing tag-->
 </div>
 <!-- Container closing tag-->
+</div>
 </div>
 <?php require ('footer.inc');?>

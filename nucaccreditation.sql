@@ -1,23 +1,24 @@
 -- phpMyAdmin SQL Dump
--- version 4.1.12
--- http://www.phpmyadmin.net
+-- version 5.0.2
+-- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 01, 2020 at 10:27 AM
--- Server version: 5.6.16
--- PHP Version: 5.5.11
+-- Generation Time: Jul 14, 2021 at 02:08 AM
+-- Server version: 10.4.13-MariaDB
+-- PHP Version: 7.4.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `nucaccreditation`
+-- Database: `nuc3`
 --
 
 -- --------------------------------------------------------
@@ -26,46 +27,14 @@ SET time_zone = "+00:00";
 -- Table structure for table `academiccontent_pef`
 --
 
-CREATE TABLE IF NOT EXISTS `academiccontent_pef` (
+CREATE TABLE `academiccontent_pef` (
   `accreditationID` varchar(15) NOT NULL,
   `content` varchar(150) NOT NULL,
   `remark` varchar(150) NOT NULL,
   `score` int(100) NOT NULL,
   `comments` text NOT NULL,
-  `ID` int(11) NOT NULL,
-  PRIMARY KEY (`ID`),
-  UNIQUE KEY `ID` (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `academiccontent_summary`
---
-
-CREATE TABLE IF NOT EXISTS `academiccontent_summary` (
-  `accreditationID` int(15) NOT NULL,
-  `content` varchar(150) NOT NULL,
-  `maximumScore` int(100) NOT NULL,
-  `actualScore` int(100) NOT NULL,
-  `percentageScore` int(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `accreditationrequest_apply`
---
-
-CREATE TABLE IF NOT EXISTS `accreditationrequest_apply` (
-  `accreditationID` varchar(15) NOT NULL,
-  `RequestReasons` text NOT NULL,
-  `prposedDate` date NOT NULL,
-  `Fname` varchar(40) NOT NULL,
-  `Lname` varchar(40) NOT NULL,
-  `Oname` varchar(40) NOT NULL,
-  `status` varchar(30) NOT NULL,
-  PRIMARY KEY (`accreditationID`)
+  `ID` bigint(20) NOT NULL,
+  `sn` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -74,20 +43,21 @@ CREATE TABLE IF NOT EXISTS `accreditationrequest_apply` (
 -- Table structure for table `admin`
 --
 
-CREATE TABLE IF NOT EXISTS `admin` (
+CREATE TABLE `admin` (
   `firstName` varchar(50) NOT NULL,
   `surname` varchar(50) NOT NULL,
   `otherName` varchar(50) NOT NULL,
   `email` varchar(70) NOT NULL,
   `telephone1` int(15) NOT NULL,
-  `telephone2` int(15) NOT NULL,
-  `homeAddress` text NOT NULL,
-  `position` varchar(50) NOT NULL,
-  `password` varchar(70) NOT NULL,
-  `securityQuestion` varchar(100) NOT NULL,
-  `securityAnswer` varchar(100) NOT NULL,
-  PRIMARY KEY (`email`)
+  `password` varchar(70) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `admin`
+--
+
+INSERT INTO `admin` (`firstName`, `surname`, `otherName`, `email`, `telephone1`, `password`) VALUES
+('Maimuna', 'Yusuf', 'Tahir', 'maimuna@gmail.com', 2147483647, '7c4a8d09ca3762af61e59520943dc26494f8941b');
 
 -- --------------------------------------------------------
 
@@ -95,7 +65,7 @@ CREATE TABLE IF NOT EXISTS `admin` (
 -- Table structure for table `centrallibrary_ssf`
 --
 
-CREATE TABLE IF NOT EXISTS `centrallibrary_ssf` (
+CREATE TABLE `centrallibrary_ssf` (
   `accreditationID` varchar(15) NOT NULL,
   `officerName` varchar(100) NOT NULL,
   `designation` varchar(100) NOT NULL,
@@ -115,27 +85,13 @@ CREATE TABLE IF NOT EXISTS `centrallibrary_ssf` (
 -- Table structure for table `employersrating_pef`
 --
 
-CREATE TABLE IF NOT EXISTS `employersrating_pef` (
+CREATE TABLE `employersrating_pef` (
   `accreditationID` varchar(15) NOT NULL,
   `content` varchar(150) NOT NULL,
   `remark` varchar(150) NOT NULL,
   `score` int(100) NOT NULL,
   `comment` text NOT NULL,
-  `ID` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `employersrating_summary`
---
-
-CREATE TABLE IF NOT EXISTS `employersrating_summary` (
-  `accreditationID` int(15) NOT NULL,
-  `content` varchar(150) NOT NULL,
-  `maximumScore` int(100) NOT NULL,
-  `actualScore` int(100) NOT NULL,
-  `percentageScore` int(100) NOT NULL
+  `ID` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -144,27 +100,13 @@ CREATE TABLE IF NOT EXISTS `employersrating_summary` (
 -- Table structure for table `funding_pef`
 --
 
-CREATE TABLE IF NOT EXISTS `funding_pef` (
+CREATE TABLE `funding_pef` (
   `accreditationID` varchar(15) NOT NULL,
   `content` varchar(150) NOT NULL,
   `remark` varchar(150) NOT NULL,
   `score` int(100) NOT NULL,
   `comment` text NOT NULL,
-  `ID` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `funding_summary`
---
-
-CREATE TABLE IF NOT EXISTS `funding_summary` (
-  `accreditationID` int(15) NOT NULL,
-  `content` varchar(150) NOT NULL,
-  `maximumScore` int(100) NOT NULL,
-  `actualScore` int(100) NOT NULL,
-  `percentageScore` int(100) NOT NULL
+  `ID` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -173,7 +115,7 @@ CREATE TABLE IF NOT EXISTS `funding_summary` (
 -- Table structure for table `hods_account`
 --
 
-CREATE TABLE IF NOT EXISTS `hods_account` (
+CREATE TABLE `hods_account` (
   `accreditationID` varchar(15) NOT NULL,
   `surname` varchar(40) NOT NULL,
   `otherName` varchar(40) NOT NULL,
@@ -181,8 +123,9 @@ CREATE TABLE IF NOT EXISTS `hods_account` (
   `telephone` varchar(15) NOT NULL,
   `qualification` varchar(70) NOT NULL,
   `email` varchar(50) NOT NULL,
-  `password` varchar(50) NOT NULL,
-  `hodID` varchar(16) NOT NULL
+  `password` varchar(255) NOT NULL,
+  `hodID` varchar(16) NOT NULL,
+  `universityID` varchar(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -191,27 +134,13 @@ CREATE TABLE IF NOT EXISTS `hods_account` (
 -- Table structure for table `library_pef`
 --
 
-CREATE TABLE IF NOT EXISTS `library_pef` (
+CREATE TABLE `library_pef` (
   `accreditationID` varchar(15) NOT NULL,
   `content` varchar(150) NOT NULL,
   `remark` varchar(150) NOT NULL,
   `score` int(100) NOT NULL,
   `comment` text NOT NULL,
-  `ID` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `library_summary`
---
-
-CREATE TABLE IF NOT EXISTS `library_summary` (
-  `accreditationID` int(15) NOT NULL,
-  `content` varchar(150) NOT NULL,
-  `maximumScore` int(100) NOT NULL,
-  `actualScore` int(100) NOT NULL,
-  `percentageScore` int(100) NOT NULL
+  `ID` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -220,7 +149,7 @@ CREATE TABLE IF NOT EXISTS `library_summary` (
 -- Table structure for table `panelmembers`
 --
 
-CREATE TABLE IF NOT EXISTS `panelmembers` (
+CREATE TABLE `panelmembers` (
   `firstName` varchar(50) NOT NULL,
   `surname` varchar(50) NOT NULL,
   `otherName` varchar(50) NOT NULL,
@@ -229,9 +158,30 @@ CREATE TABLE IF NOT EXISTS `panelmembers` (
   `telephone1` int(15) NOT NULL,
   `password` varchar(70) NOT NULL,
   `accreditationID` varchar(15) NOT NULL,
-  PRIMARY KEY (`accreditationID`),
-  UNIQUE KEY `accreditationID` (`accreditationID`)
+  `ID` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `panelreport`
+--
+
+CREATE TABLE `panelreport` (
+  `ID` varchar(255) NOT NULL,
+  `academicContent` decimal(65,0) NOT NULL,
+  `employersRating` decimal(65,0) NOT NULL,
+  `funding` decimal(65,0) NOT NULL,
+  `library` decimal(60,0) NOT NULL,
+  `physicalFacilities` decimal(60,0) NOT NULL,
+  `staffing` decimal(60,0) NOT NULL,
+  `fName` varchar(50) NOT NULL,
+  `lName` varchar(50) NOT NULL,
+  `oName` varchar(50) NOT NULL,
+  `status` varchar(60) NOT NULL,
+  `submitedDate` date NOT NULL,
+  `accreditationID` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -239,34 +189,53 @@ CREATE TABLE IF NOT EXISTS `panelmembers` (
 -- Table structure for table `panelreport_summary`
 --
 
-CREATE TABLE IF NOT EXISTS `panelreport_summary` (
-  `accreditationID` varchar(15) NOT NULL,
-  `philosophyObjectives` text NOT NULL,
-  `curriculum` text NOT NULL,
-  `admissionRequirement` text NOT NULL,
-  `academicRegulations` text NOT NULL,
-  `courseEvaluation` text NOT NULL,
-  `studentCourseEvaluation` text NOT NULL,
-  `externalExaminer` text NOT NULL,
-  `staffing` text NOT NULL,
-  `physicalFacilities` text NOT NULL,
-  `libraryBooks` text NOT NULL,
-  `financing` text NOT NULL,
-  `universityComment` text NOT NULL,
-  `academicScore` int(11) NOT NULL,
-  `staffingScore` int(11) NOT NULL,
-  `facilitiesScore` int(11) NOT NULL,
-  `libraryScore` int(11) NOT NULL,
-  `fundingScore` int(11) NOT NULL,
-  `employersScore` int(11) NOT NULL,
-  `totalScore` int(100) NOT NULL,
-  `accreditationStatus` text NOT NULL,
-  `dateSubmited` date NOT NULL,
-  `firstName` varchar(50) NOT NULL,
-  `surname` varchar(50) NOT NULL,
-  `otherName` varchar(50) NOT NULL,
-  `submissionStatus` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE `panelreport_summary` (
+  `ID` varchar(255) NOT NULL,
+  `academicContent` decimal(65,0) NOT NULL,
+  `employersRating` decimal(65,0) NOT NULL,
+  `funding` decimal(65,0) NOT NULL,
+  `library` decimal(60,0) NOT NULL,
+  `physicalFacilities` decimal(60,0) NOT NULL,
+  `staffing` decimal(60,0) NOT NULL,
+  `total` decimal(65,0) NOT NULL,
+  `avg` decimal(65,0) NOT NULL,
+  `panelresut` varchar(255) NOT NULL,
+  `accreditation_status` varchar(255) NOT NULL,
+  `accreditationDate` date NOT NULL,
+  `fName` varchar(50) NOT NULL,
+  `lName` varchar(50) NOT NULL,
+  `oName` varchar(50) NOT NULL,
+  `status` varchar(60) NOT NULL,
+  `sdate` date NOT NULL,
+  `accreditationID` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `panelreport_summary_avg`
+--
+
+CREATE TABLE `panelreport_summary_avg` (
+  `ID` varchar(255) NOT NULL,
+  `academicContent` decimal(65,0) NOT NULL,
+  `employersRating` decimal(65,0) NOT NULL,
+  `funding` decimal(65,0) NOT NULL,
+  `library` decimal(60,0) NOT NULL,
+  `physicalFacilities` decimal(60,0) NOT NULL,
+  `staffing` decimal(60,0) NOT NULL,
+  `total` decimal(65,0) NOT NULL,
+  `avg` decimal(65,0) NOT NULL,
+  `panelresut` varchar(255) NOT NULL,
+  `accreditation_status` varchar(255) NOT NULL,
+  `accreditationDate` date NOT NULL,
+  `fName` varchar(50) NOT NULL,
+  `lName` varchar(50) NOT NULL,
+  `oName` varchar(50) NOT NULL,
+  `status` varchar(60) NOT NULL,
+  `submitedDate` date NOT NULL,
+  `accreditationID` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -274,27 +243,13 @@ CREATE TABLE IF NOT EXISTS `panelreport_summary` (
 -- Table structure for table `physicalfacilities_pef`
 --
 
-CREATE TABLE IF NOT EXISTS `physicalfacilities_pef` (
+CREATE TABLE `physicalfacilities_pef` (
   `accreditationID` varchar(15) NOT NULL,
   `content` varchar(150) NOT NULL,
   `remark` varchar(150) NOT NULL,
   `score` int(100) NOT NULL,
   `comment` text NOT NULL,
-  `ID` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `physicalfacilities_summary`
---
-
-CREATE TABLE IF NOT EXISTS `physicalfacilities_summary` (
-  `accreditationID` int(15) NOT NULL,
-  `content` varchar(150) NOT NULL,
-  `maximumScore` int(100) NOT NULL,
-  `actualScore` int(100) NOT NULL,
-  `percentageScore` int(100) NOT NULL
+  `ID` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -303,7 +258,7 @@ CREATE TABLE IF NOT EXISTS `physicalfacilities_summary` (
 -- Table structure for table `programmeinfo_ssf`
 --
 
-CREATE TABLE IF NOT EXISTS `programmeinfo_ssf` (
+CREATE TABLE `programmeinfo_ssf` (
   `programmeID` int(11) NOT NULL,
   `accreditationID` varchar(15) NOT NULL,
   `programmeTitle` varchar(100) NOT NULL,
@@ -316,7 +271,7 @@ CREATE TABLE IF NOT EXISTS `programmeinfo_ssf` (
   `deanQualification` varchar(100) NOT NULL,
   `hodName` varchar(100) NOT NULL,
   `hodQualification` text NOT NULL,
-  `programmehistory` text,
+  `programmehistory` text DEFAULT NULL,
   `programmeAdministration` text NOT NULL,
   `studentsWelfare` text NOT NULL,
   `academicAtmosphere` text NOT NULL,
@@ -326,9 +281,7 @@ CREATE TABLE IF NOT EXISTS `programmeinfo_ssf` (
   `officerOname` varchar(30) NOT NULL,
   `rank` varchar(100) NOT NULL,
   `submissionStatus` varchar(20) NOT NULL,
-  `hodID` varchar(16) NOT NULL,
-  PRIMARY KEY (`programmeID`),
-  FULLTEXT KEY `programmehistory` (`programmehistory`)
+  `hodID` varchar(16) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -337,7 +290,7 @@ CREATE TABLE IF NOT EXISTS `programmeinfo_ssf` (
 -- Table structure for table `programme_apply`
 --
 
-CREATE TABLE IF NOT EXISTS `programme_apply` (
+CREATE TABLE `programme_apply` (
   `accreditationID` varchar(15) NOT NULL,
   `pID` varchar(20) NOT NULL,
   `faculty` varchar(100) NOT NULL,
@@ -346,9 +299,9 @@ CREATE TABLE IF NOT EXISTS `programme_apply` (
   `dateEstablished` date NOT NULL,
   `status` varchar(70) NOT NULL,
   `hodID` varchar(16) NOT NULL,
-  PRIMARY KEY (`pID`),
-  KEY `accreditationID` (`accreditationID`),
-  KEY `accreditationID_2` (`accreditationID`)
+  `universityID` varchar(15) NOT NULL,
+  `duedate` varchar(20) NOT NULL,
+  `accreditation_status` varchar(40) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -357,27 +310,13 @@ CREATE TABLE IF NOT EXISTS `programme_apply` (
 -- Table structure for table `staffing_pef`
 --
 
-CREATE TABLE IF NOT EXISTS `staffing_pef` (
+CREATE TABLE `staffing_pef` (
   `accreditationID` varchar(15) NOT NULL,
   `content` varchar(150) NOT NULL,
   `remark` varchar(150) NOT NULL,
   `score` int(100) NOT NULL,
   `comment` text NOT NULL,
-  `ID` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `staffing_summary`
---
-
-CREATE TABLE IF NOT EXISTS `staffing_summary` (
-  `accreditationID` int(15) NOT NULL,
-  `content` varchar(150) NOT NULL,
-  `maximumScore` int(100) NOT NULL,
-  `actualScore` int(100) NOT NULL,
-  `percentageScore` int(100) NOT NULL
+  `ID` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -386,7 +325,7 @@ CREATE TABLE IF NOT EXISTS `staffing_summary` (
 -- Table structure for table `universityinfo_ssf`
 --
 
-CREATE TABLE IF NOT EXISTS `universityinfo_ssf` (
+CREATE TABLE `universityinfo_ssf` (
   `universityName` varchar(250) NOT NULL,
   `universityAddress` text NOT NULL,
   `telephone` int(15) NOT NULL,
@@ -396,10 +335,7 @@ CREATE TABLE IF NOT EXISTS `universityinfo_ssf` (
   `proprietorsTelephone2` int(15) NOT NULL,
   `parsuantLaw` char(3) NOT NULL,
   `parsuantEstablishe` text NOT NULL,
-  `accreditationID` varchar(15) NOT NULL,
-  PRIMARY KEY (`accreditationID`),
-  UNIQUE KEY `accreditationID` (`accreditationID`),
-  UNIQUE KEY `accreditationID_2` (`accreditationID`)
+  `universityID` varchar(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -408,21 +344,19 @@ CREATE TABLE IF NOT EXISTS `universityinfo_ssf` (
 -- Table structure for table `vcinformation_ssf`
 --
 
-CREATE TABLE IF NOT EXISTS `vcinformation_ssf` (
+CREATE TABLE `vcinformation_ssf` (
   `firstName` varchar(50) NOT NULL,
   `surname` varchar(50) NOT NULL,
   `otherName` varchar(50) NOT NULL,
   `email` varchar(70) NOT NULL,
-  `telephone1` int(15) NOT NULL,
-  `telephone2` int(15) NOT NULL,
+  `telephone1` int(255) NOT NULL,
+  `telephone2` int(255) NOT NULL,
   `qualification` varchar(100) NOT NULL,
   `homeAddress` text NOT NULL,
   `password` varchar(70) NOT NULL,
   `securityQuestion` varchar(100) NOT NULL,
   `securityAnswer` varchar(100) NOT NULL,
-  `accreditationID` varchar(15) NOT NULL,
-  PRIMARY KEY (`accreditationID`),
-  UNIQUE KEY `accreditationID` (`accreditationID`)
+  `universityID` varchar(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -431,7 +365,7 @@ CREATE TABLE IF NOT EXISTS `vcinformation_ssf` (
 -- Table structure for table `vcselfstudy_ssf`
 --
 
-CREATE TABLE IF NOT EXISTS `vcselfstudy_ssf` (
+CREATE TABLE `vcselfstudy_ssf` (
   `accreditationID` varchar(15) NOT NULL,
   `ownershipControl` text NOT NULL,
   `organisationAdministration` text NOT NULL,
@@ -452,9 +386,7 @@ CREATE TABLE IF NOT EXISTS `vcselfstudy_ssf` (
   `otherName` varchar(50) NOT NULL,
   `rank` varchar(70) NOT NULL,
   `dateSubmited` date NOT NULL,
-  `submissonStatus` varchar(70) NOT NULL,
-  PRIMARY KEY (`accreditationID`),
-  UNIQUE KEY `accreditationID` (`accreditationID`)
+  `submissonStatus` varchar(70) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -463,15 +395,114 @@ CREATE TABLE IF NOT EXISTS `vcselfstudy_ssf` (
 -- Table structure for table `visitationdetails_pef`
 --
 
-CREATE TABLE IF NOT EXISTS `visitationdetails_pef` (
+CREATE TABLE `visitationdetails_pef` (
   `accreditationID` varchar(15) NOT NULL,
   `universityName` varchar(150) NOT NULL,
   `titleProgramme` varchar(150) NOT NULL,
   `dateFrom` date NOT NULL,
   `dateTo` date NOT NULL,
-  `ID` int(11) NOT NULL,
-  PRIMARY KEY (`accreditationID`)
+  `ID` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `academiccontent_pef`
+--
+ALTER TABLE `academiccontent_pef`
+  ADD PRIMARY KEY (`sn`);
+
+--
+-- Indexes for table `admin`
+--
+ALTER TABLE `admin`
+  ADD PRIMARY KEY (`email`);
+
+--
+-- Indexes for table `hods_account`
+--
+ALTER TABLE `hods_account`
+  ADD PRIMARY KEY (`accreditationID`);
+
+--
+-- Indexes for table `panelmembers`
+--
+ALTER TABLE `panelmembers`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- Indexes for table `panelreport`
+--
+ALTER TABLE `panelreport`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- Indexes for table `panelreport_summary`
+--
+ALTER TABLE `panelreport_summary`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- Indexes for table `panelreport_summary_avg`
+--
+ALTER TABLE `panelreport_summary_avg`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- Indexes for table `programmeinfo_ssf`
+--
+ALTER TABLE `programmeinfo_ssf`
+  ADD PRIMARY KEY (`programmeID`);
+ALTER TABLE `programmeinfo_ssf` ADD FULLTEXT KEY `programmehistory` (`programmehistory`);
+
+--
+-- Indexes for table `programme_apply`
+--
+ALTER TABLE `programme_apply`
+  ADD PRIMARY KEY (`pID`),
+  ADD KEY `accreditationID` (`accreditationID`),
+  ADD KEY `accreditationID_2` (`accreditationID`);
+
+--
+-- Indexes for table `universityinfo_ssf`
+--
+ALTER TABLE `universityinfo_ssf`
+  ADD PRIMARY KEY (`universityID`),
+  ADD UNIQUE KEY `accreditationID` (`universityID`),
+  ADD UNIQUE KEY `accreditationID_2` (`universityID`);
+
+--
+-- Indexes for table `vcinformation_ssf`
+--
+ALTER TABLE `vcinformation_ssf`
+  ADD PRIMARY KEY (`universityID`),
+  ADD UNIQUE KEY `accreditationID` (`universityID`);
+
+--
+-- Indexes for table `vcselfstudy_ssf`
+--
+ALTER TABLE `vcselfstudy_ssf`
+  ADD PRIMARY KEY (`accreditationID`),
+  ADD UNIQUE KEY `accreditationID` (`accreditationID`);
+
+--
+-- Indexes for table `visitationdetails_pef`
+--
+ALTER TABLE `visitationdetails_pef`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `academiccontent_pef`
+--
+ALTER TABLE `academiccontent_pef`
+  MODIFY `sn` int(11) NOT NULL AUTO_INCREMENT;
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

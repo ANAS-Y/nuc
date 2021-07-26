@@ -1,15 +1,14 @@
 
 <?php
 $_SESSION["msg"]="";
-	 require ('mainHeader.inc');
+	require ('admin.header.inc');
 ?>
 <div class="container-fluid">
 <!-- first div start here-->
 <div class="col card" >
 <!-- first div title-->
 <div class="card-title " >
-<h4 style="text-align: center; font-family: fantasy;color:#2C7337 ;">VC SIGN UP AREA</h4>
-<h6 style="text-align: center; font-family: fantasy;color:#2C7337 ;"><?php $_SESSION['msg']?></h6>
+<h4 style="text-align: center; font-family: fantasy;color:#2C7337 ;">Adding University Information</h4>
 </div>
 
  
@@ -100,29 +99,22 @@ $_SESSION["msg"]="";
   </div>
   <div class="form-row">
       <div class="col">
-      <input type="password" id="pwd" name="pwd" required="required"class="form-control" placeholder="password" >
+      <input type="hidden" id="pwd" name="pwd"  value="abcd12345678" disabled="true" required="required"class="form-control" placeholder="password" >
       </div>
       <div class="col">
-      <input type="password" onmouseout="confirmPassword()" id="cpwd" name="cpwd" required="required"class="form-control" placeholder="Confirm password">
+      <input type="hidden" onmouseout="confirmPassword()" value="abcd12345678" disabled="true" id="cpwd" name="cpwd" required="required"class="form-control" placeholder="Confirm password">
       </div>
       </div>
       
       <div class="form-row">
        <div class="col">
-      <select id="squestion" class="form-control" name="squestion">
-        <option selected>Secuirity Question</option>
-        <option>Who is your Mentor?</option>
-        <option>What is your pet Name?</option>
-        <option>who is your best friend?</option>
-      </select>
+      <input type="hidden" id="squestion" class="form-control" value="on which year the University established?"  name="squestion">
     </div>
       <div class="col">
-      <input type="password" id="sanswer" name="sanswer" required="required"class="form-control" placeholder="answer to secuiry Question">
+      <input type="hidden" id="sanswer" name="sanswer" required="required"class="form-control" placeholder="answer to secuiry Question">
       </div>
       </div>
-      <div class="form-row">
-      <label id="msg" style="color: red;">Password must be more than 5 characters</label>
-      </div>
+      
   </div>
 </div>
 <div class="form-row">
@@ -132,5 +124,8 @@ $_SESSION["msg"]="";
 <!-- first div closing tag -->
 </div>
 <!-- Container closing tag-->
+</div>
+</div>
+</div>
 </div>
 <?php require ('footer.inc');?>

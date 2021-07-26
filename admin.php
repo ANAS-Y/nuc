@@ -7,7 +7,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
     return($data);
 }
 $email =  input_check($_POST["email"]);
-$password = input_check($_POST["psw"]);
+$password = sha1(input_check($_POST["psw"]));
  
 include_once("connection.php");
             /* Performing SQL query */
@@ -21,7 +21,10 @@ $fetch =mysqli_fetch_assoc($result);
 mysqli_close($db_link);
 $_SESSION["position"]='admin';
 $_SESSION["loginStatus"]='login';
-$_SESSION['accID'] ="";
+$_SESSION['adminID'] =$fetch['email'];
+$_SESSION['admin'] =$fetch['firstName'].' '.$fetch['surname'];
+$_SESSION["universityID"]="";
+$_SESSION['accID']="";
 header('location:admin.home.php');
 } 
 else{

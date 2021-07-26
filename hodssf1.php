@@ -5,7 +5,7 @@ mysqli_select_db($db_link,"nucaccreditation") or die("Could not select database"
             
              /* Performing SQL query */
  $sql = "SELECT * FROM `programmeinfo_ssf` WHERE accreditationID= '$accreditationID'";
-if (!mysqli_query($db_link,$sql)){die("Faild  to check the existance of Vc's self study form" . mysqli_error($db_link));}
+if (!mysqli_query($db_link,$sql)){die("Faild  to check Program" . mysqli_error($db_link));}
 
 
 if(mysqli_num_rows(mysqli_query($db_link,$sql)) > 0){

@@ -1,6 +1,6 @@
 
 <?php 
-require ('header1.inc');
+require ('mainHeader.inc');
   function input_check($data){ 
     $data=trim($data);
     $data=stripslashes($data);
@@ -13,17 +13,38 @@ $email =  input_check($_POST["email"]);
 include_once("connection.php");
             /* Performing SQL query */
     $sql = "SELECT*FROM `vcinformation_ssf` WHERE email ='$email'";
-if (!mysqli_query($db_link,$sql)){
-    die("Faild  to check email" . mysqli_error($db_link));
-   }
+if (!mysqli_query($db_link,$sql)){die("Faild  to check email" . mysqli_error($db_link));}
    $result = mysqli_query($db_link,$sql);
-   if(mysqli_num_rows($result) > 0){
+   
+if(mysqli_num_rows($result) > 0){
     $fetch =mysqli_fetch_assoc($result);
     $email =$fetch["email"];
+    $pw =$fetch["firstName"].$fetch["telephone1"];
+    mail(
+$email,
+"PASSWORD RECOVERY ",
+"A Password recovery was successful your Password:".$pw."");
+
 $_SESSION["msg"]= 'Your password was sent to ' .$email. '<br> please check your inbox or sperm';
 } else{
+    
+$sql = "SELECT*FROM `hods_account` WHERE email ='$email'";
+if (!mysqli_query($db_link,$sql)){die("Faild  to check email" . mysqli_error($db_link));}
+   $result = mysqli_query($db_link,$sql);
+   
+if(mysqli_num_rows($result) > 0){
+    $fetch =mysqli_fetch_assoc($result);
+    $email =$fetch["email"];
+    $hodID =$fetch["hodID"];
+    mail(
+$email,
+"PASSWORD RECOVERY ",
+"A Password recovery was successful your Password:".$hodID."");
 
+$_SESSION["msg"]= 'Your password was sent to ' .$email. '<br> please check your inbox or sperm';
+}
 $_SESSION["msg"]= ' Email donot exist or not register with any account';
+
    }
 mysqli_close($db_link);
 }

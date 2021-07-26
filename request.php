@@ -3,59 +3,35 @@ require ('admin.header.inc');
 ?>
 <div class="container-fluid">
 <!-- first div start here-->
-<div class="col card" >
+<div class="col card p-3" >
 <!-- first div title-->
 <div class="card-title "  >
-<h3 id="txt"style="text-align: center; color: red;" ><strong >ADMINISTRATOR PANEL</strong></h3>
-
-<div class="alert">
-<h3 id="msg" style="text-align: center; color:Blue;" class="alert-link" >SELECT FROM THE LIST OF AVAILABLE ACCREDITATION REQUESTS ON THE LIST OF UNIVERSITIEST</h3>
-</div>
+<h4 id="txt"style="text-align: center; color:green;" ><strong >UPDATING ACCREDITATION STATUS</strong></h4>
 </div>
 <div class="row" >
 <!-- first column start here-->
 <div class="col" >
-<div class=" card form-category">
-<form method="post" enctype="multipart/form-data" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF'])?>">
 
 <div class="navdiv" >  
 <div class=" navbar" >
 <ul class="navbar-nav mr-auto" style=" width: 100%;">
 <li class="nav-item dropdown" >
-<a class=" nav-link dropdown-toggle btn btn-primary  login-btn" style=" width: 100%;"
+<a class=" nav-link dropdown-toggle btn btn-outline-success   " style=" width: 100%; color: black;"
          onclick="showDropDown()"  href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-         aria-haspopup="true" aria-expanded="false">Click here to Select the Accreditation Requests from the list of Universities</a>   
+         aria-haspopup="true" aria-expanded="false">Click here to Select University</a>   
 <div class="dropdown-menu" id="accID" style=" color: white; text-align: center; width: 100%;" aria-labelledby="navbarDropdown" >
 
 <?php
 include_once("connection.php");
-            /* Performing SQL query */
-$sql = "SELECT * FROM `accreditationrequest_apply`  WHERE status= 'submited' OR status= 'approved some'";
-if (!mysqli_query($db_link,$sql)){die("Faild  to check the existance of Vc's self study form" . mysqli_error($db_link));}
-
-$result = mysqli_query($db_link,$sql);
-$numRow = mysqli_num_rows($result);
-
-if ($numRow>0){
-while($fetch = mysqli_fetch_assoc($result)){
-$submitedDate = $fetch["Oname"];
-$accreditationID = $fetch["accreditationID"];
-
-$sql2 = "SELECT * FROM `universityinfo_ssf`  WHERE accreditationID= '$accreditationID'";
+$sql2 = "SELECT * FROM `universityinfo_ssf`";
 if (!mysqli_query($db_link,$sql2)){die("Faild  to check the university info" . mysqli_error($db_link));}
 $result2 = mysqli_query($db_link,$sql2);
-$fetch2 = mysqli_fetch_assoc($result2);
-$University = $fetch2["universityName"];
-  //echo '<option ></option>'; 
-  echo'<a class="dropdown-item" id="'.$accreditationID.'"  onclick="myProgramme(this.id)" href="">'. $University.' Submited the request on '.$submitedDate.' </a>';
-  echo'<div class="divider dropdown-item"></div>';
-
+while($fetch2 = mysqli_fetch_assoc($result2)){
+  $University = $fetch2["universityName"];
+$universityID = $fetch2["universityID"];
+  echo'<a class="dropdown-item" id="'.$universityID.'"  onclick="myProgramme(this.id)" href="">'. $University.'</a>';
+  echo'<div class="divider dropdown-item"></div>'; 
 }
-$result->close();
- }
- else{
-    echo" No any pending Accreditation request as of now ";
- }
 	
 ?>           
           </div>
@@ -67,9 +43,9 @@ $result->close();
  </div>
  </form>
 <?php
-$accreditationID = $_SESSION['accID'];
+$universityID = $_SESSION['accID'];
 include_once("connection.php");
-$sql = "SELECT* FROM programme_apply WHERE accreditationID ='$accreditationID'";
+$sql = "SELECT* FROM programme_apply WHERE universityID ='$universityID' AND accreditation_status='Ready'";
 if (!mysqli_query($db_link,$sql)){die("Faild  to check the existance of programmes" . mysqli_error($db_link)); }
 
 $result = mysqli_query($db_link,$sql);
@@ -80,7 +56,7 @@ if ($numRow >0 ){
 <!-- Third column start here-->
 <div class="col card form-category" id="filled-section"  style="font-size:11px;">
 <div style="background-color:#7CC68D; color: white;font-size:8px;">
-<h5 style="text-align:center;">THE PROGRAMMES REQUESTING FOR ACCREDITATION</h5>
+<h5 style="text-align:center;">PENDING ACCREDITATION PROGRAMMES</h5>
 </div>
     <table class="table">
 <tr class="trheader">
@@ -91,23 +67,20 @@ if ($numRow >0 ){
 	<td>Date Establish</td>
 	<td> HOD Name</td>
 	<td>HOD Qualification</td>
-    <td>Rejection button/Reasons</td>
-    <td>Accreditation button/Date</td>
+    <td>Select the type of Accreditation</td>
+    <td>Action</td>
     
 </tr>';
     while($fetch=mysqli_fetch_assoc($result) ){
        
         $hodID =$fetch['hodID'];
           //check for HOD's Details
-    $sql2 = "SELECT* FROM hods_account WHERE accreditationID ='$accreditationID'AND hodID = '$hodID'";
-            
-             if (!mysqli_query($db_link,$sql2)){
-  die("Faild  to check the HOD's Details" . mysqli_error($db_link));    
-}
+$sql2 = "SELECT* FROM hods_account WHERE hodID = '$hodID'";
+if (!mysqli_query($db_link,$sql2)){die("Faild  to check the HOD's Details" . mysqli_error($db_link)); }
 $result2 = mysqli_query($db_link,$sql2);
 $fetch2=mysqli_fetch_assoc($result2); 
         
-        $faculty =$fetch['faculty'];
+$faculty =$fetch['faculty'];
 $department=$fetch["department"];;	
 $programme =$fetch["programme"];;
 $status=$fetch["status"];
@@ -123,7 +96,8 @@ $hod_qualification =$fetch2["qualification"];
 
     echo'
     <tr class="tr">
-    <form method="post" enctype="text/plain">
+    <form method="post" enctype="multipart/form-data" action="approveProgramme.php">
+
 	<td>'.$faculty.'</td>
 	<td>'.$department.'</td>
 	<td>'.$programme.'</td>
@@ -131,15 +105,19 @@ $hod_qualification =$fetch2["qualification"];
 	<td>'.$establishDate.'</td>
 	<td>'.$hod_fulName.'</td>
 	<td>'.$hod_qualification.'</td>
- <td><input type="button"  style="color:white; background-color:red;" name="'.$hodID.'" 
- id="'.$programmeID.'" value="Reject" onclick="deleteProgramme(this.id,this.name)" /> <textarea id ="'.$programmeID.'" 
-rows="2" >Rejection reasons if rejected </textarea></td>
  
- <td><input type="button"  style="color:white; background-color:#2C7337;" name="'.$hodID.'" 
- id="'.$programmeID.'" value="Approve" onclick="approveProgramme(this.id,this.name)" /> <input id ="'.$hodID.'" type="date" " 
- placeholder="accreditation Date" size="10" /></td>
- 
- 
+  <td><select size="1" id="status" name="accStatus" required style="width:150px;" class=" form-control" >
+	<option value="">Select Accreditation Type</option>
+    <option value=" Approved"> Interim Accreditation</option>
+	<option value="Denied">Denied Accreditation</option>
+	<option value="Approved">Full Accreditation  </option>
+</select>
+  </td>  
+ <td>
+ <input type="hidden"   name="pID" value="'.$programmeID.'"  />
+  <input type="submit"  style="color:white; background-color:#2C7337;" id="'.$programmeID.'" value="Update" />
+ </td>
+
  </form>
     </tr>';
     }
@@ -150,10 +128,13 @@ rows="2" >Rejection reasons if rejected </textarea></td>
  echo'</table>';
 $accreditationID ='';	
 ?>
+
  </div>
 </div>
-
-
+</div>
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>

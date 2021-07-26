@@ -31,11 +31,7 @@
       <div class="col"><input type="checkbox"  checked="checked" name="remember"> <label for="remeber" >Remember me</label></div>
      
     </div>
-     <div class="form-row">
-    <div class="col" style="margin-left: 40%;color:blue;">
-     <span class="psw">Dont have account yet <a href="apply.new_account.php" style="color:red;"> Create</a></span>
-    </div>
-    </div>
+
     <div class="form-row"style="margin-left: 40%;" >
     <div class="col" >
      <span style="color:blue;" class="psw">Forgot<a href="forgot_password.php" style="color:red;"> password?</a></span>

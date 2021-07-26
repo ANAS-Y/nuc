@@ -1,6 +1,5 @@
 <?php
 	session_start();
-
    if( $_SESSION["loginStatus"]!="login"){
         header('location:admin.php');
    }
@@ -24,75 +23,154 @@
       
        <!-- User defined CSS & JS -->
        <link href="css/nuc.css" rel="stylesheet" type="text/css" />
+        <link href="css/dashboard.css" rel="stylesheet" type="text/css" />
        <script type="text/javascript" src="css/nuc.js"> </script>
-      
+      <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+
  <title>National Universities commission</title>
   </head>
-  <body onload="programmeDisplay">
-          
-  <!-- Navigation bar start here -->
-  <div class="container-fluid navdiv" >
-  
-   <!-- Top navbar with a marquee start here-->
-     <div class="container-fluid topnav" > 
-     <a href="adminLogOut.php" style="text-decoration: none; color:white;margin-left: 95%;">Log out</a>
-     </div>
-     
-  <nav class="navbar navbar-expand-lg navbar-light">
- 
+  <body>
+    <div class="home_content " >
+<!-- Top navbar  start here-->
+  <header class="navbar  sticky-top  flex-md-nowrap p-0 shadow" style="background-color:#2C7337; color: white;">
   <!-- logo start here-->
-    <img src="images/nuc-header-new.png" alt="logo" width="20%" />
-   
-  <a href="#" class="nav-link" ><i class="w3-large fa fa-home"></i></a>
-  <button class="navbar-toggler"  type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon" ></span>
+    <img class="navbar-brand col-md-3 col-lg-2 me-0 px-3"src="images/nuc-header-new.png" alt="logo" width="20%" />
+  
+  <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
   </button>
+  <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
+  <ul class="navbar-nav px-3">
+    <li class="nav-item text-nowrap">
+      <a class="nav-link" href="adminLogOut.php" >Sign out</a>
+    </li>
+  </ul>
+</header>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="panel.members.php" style="color: white;">ADD PANEL MEMBERS <span class="sr-only"></span></a>
-      </li>
+<div class="container-fluid">
+  <div class="row">
+    <nav id="sidebarMenu" class="col-md-2 col-lg-2 d-md-block bg-dark text-white sidebar collapse" style="font-size:11px;">
+      <div class="position-sticky pt-5">
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="admin.home.php">
+              <span data-feather="home"></span>
+              Dashboard
+            </a>
+          </li>
+          <hr class="featurette-divider">
+          <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+          <span>University</span>
+          <a class="link-secondary" href="#" aria-label="Add a new report">
+            <span data-feather="plus-circle"></span>
+          </a>
+        </h6>
+        <ul class="nav flex-column mb-2">
+          <li class="nav-item">
+            <a class="nav-link" href="apply.new_account.php">
+              <span data-feather="file-text"></span>
+              Add New University
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="Apply.php">
+              <span data-feather="file-text"></span>
+              Add New Program
+            </a>
+          </li>
+          
+          <li class="nav-item">
+            <a class="nav-link" href="viewProgram.php">
+              <span data-feather="file-text"></span>
+              View Programs
+            </a>
+          </li
+          <hr class="featurette-divider">
+          <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+          <span>Accreditation</span>
+          <a class="link-secondary" href="#" aria-label="a">
+            <span data-feather="plus-circle"></span>
+          </a>
+        </h6>
+          <li class="nav-item">
+            <a class="nav-link" href="request.php">
+              <span data-feather="users"></span>
+              Update Accreditation
+            </a>
+          </li>
+           <li class="nav-item">
+            <a class="nav-link" href="notice.php">
+              <span data-feather="users"></span>
+              Send Notice
+            </a>
+          </li>
+          <li class="nav-item">
+          <a class="nav-link" href="panelprint2.php">
+              <span data-feather="users"></span>
+              Print Panel Report
+            </a>
+          </li>
+          <li class="nav-item">
+          <a class="nav-link" href="panelprint1.php">
+              <span data-feather="users"></span>
+              Print Submited SSF
+            </a>
+          </li>
+           <li class="nav-item">
+          <a class="nav-link" href="checkstatus.php">
+              <span data-feather="users"></span>
+              Check Accreditation Status
+            </a>
+          </li>
+        </ul>
+<hr class="featurette-divider">
+        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+          <span>Accreditation Panel</span>
+          <a class="link-secondary" href="#" aria-label="Add a new report">
+            <span data-feather="plus-circle"></span>
+          </a>
+        </h6>
+           <li class="nav-item">
+            <a class="nav-link" href="addpanel2.php">
+              <span data-feather="file"></span>
+              Add panel Member
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="panelRemoveMember.php">
+              <span data-feather="shopping-cart"></span>
+              Remove Panel Member
+            </a>
+          </li>
+          <hr class="featurette-divider">
+        </ul>
+      </div>
+    </nav>
+
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 ">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h5 class="text-muted">Wel Come: <?php echo $_SESSION['admin'];?></h5>
+        <div class="alert"></div>
+          <div class=" me-2">
+            <button type="button"  class="btn btn-sm btn-secondary "><a href="newadmin.php">Add Admin</a></button>
+            <button type="button" class="btn btn-sm btn-secondary"><a href="admindelete.php">Remove Admin</a></button>
+          </div>
+        </div>
+      <h6 id="msg" style="text-align: center; color: red;" class="alert-link" ><?php echo $_SESSION["msg"];?></h6>
+
+
       
-       <li class="nav-item ">
-        <a class="nav-link" href="panelRemoveMember.php" style="color: white;">REMOVE PANEL MEMBERS <span class="sr-only"></span></a>
-      </li>
-    
-        <li class="nav-item dropdown" >
-        <a class="nav-link dropdown-toggle" onclick="showDropDown()" style="color: white;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          ACCREDITATION</a>   
-        <div class="dropdown-menu" id="accID" aria-labelledby="navbarDropdown" >
-        <a href="#" class="divider"></a>
-          <a class="dropdown-item" id="dropdown-item" href="request.php">Accept/Reject Accreditation Request</a>
-          <div class="divider dropdown-item"></div>
-          <a class="dropdown-item"id="dropdown-item2" href="#">Assign Accreditation Status)</a>
-          <a class="dropdown-item"id="dropdown-item2" href="#">View Accreditation Status)</a>
-
-           </div>
-            </li>
-            
-       <li class="nav-item dropdown" >
-        <a class="nav-link dropdown-toggle" onclick="showDropDown()" style="color: white;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          PRINT SUBMITED FORMS</a>   
-        <div class="dropdown-menu" id="accID" aria-labelledby="navbarDropdown" >
-        <a href="#" class="divider"></a>
-          <a class="dropdown-item" id="dropdown-item" href="#">Print Submited Self-Study Form</a>
-          <div class="divider dropdown-item"></div>
-          <a class="dropdown-item"id="dropdown-item2" href="#">Print Submited Accreditation Request Form</a>
-          <a class="dropdown-item"id="dropdown-item2" href="#">Print Submited Panel Report Form</a>
-          <a class="dropdown-item"id="dropdown-item2" href="#">Print Submited Accreditation Re-visitation Form</a>
-
-           </div>
-            </li>
-      
-      <li class="nav-item">
-        <a class="nav-link" href="#" style="color: white;">DOWNLOAD SUBMITED FILES</a>
-      </li>         
-      
-    </ul>
- 
-       </div>
-</nav>
-  </div>
-
-

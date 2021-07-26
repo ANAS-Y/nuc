@@ -48,7 +48,7 @@ if (!mysqli_query($db_link,$sql)){die("Faild  to Delete Panel Members " . mysqli
       <input type="email" id="email" name="email" required="required" class="form-control" placeholder="Email">
       </div>
      
-<button type="submit" class="btn btn-primary login-btn" style="background-color: red; ">REMOVE PANEL MEMBER</button> 
+<button type="submit" class="btn btn-secondary text-white" >REMOVE PANEL MEMBER</button> 
   </div>
 
 
@@ -57,11 +57,10 @@ if (!mysqli_query($db_link,$sql)){die("Faild  to Delete Panel Members " . mysqli
  
  </div>
  </div>
- <div class="form-row" style="margin-top:15%;">
+ <div class="form-row p-5" style="margin-top:0 auto;">
  <div class="col">
-<a  href="panelRemoveMembers.php" style="margin:2%; color: red; ">TO REMOVE ALL ACCREDITATION PANEL MEMBERS Click here</a>
+<a class="btn btn-danger text-white text-center" href="removepanels.php" >TO REMOVE ALL ACCREDITATION PANEL MEMBERS Click here</a>
  </div>
-<br />
  </div>
 
  </form>
@@ -74,4 +73,6 @@ if (!mysqli_query($db_link,$sql)){die("Faild  to Delete Panel Members " . mysqli
 </div>
 <!-- Container closing tag-->
 </div>
+ </div>
+ </div>
 <?php require ('footer.inc');?>

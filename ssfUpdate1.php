@@ -1,6 +1,6 @@
 <?php
 session_start();
-         $accreditationID  = $_SESSION["accreditationID"];
+$accreditationID  = $_SESSION['universityID'];
 
    function input_check($data){ 
     $data=trim($data);
@@ -33,7 +33,7 @@ mysqli_select_db($db_link,"nucaccreditation") or die("Could not select database"
   
 $sql = "UPDATE `universityinfo_ssf` SET `universityName`='$schoolName', `universityAddress`='$address', 
 `telephone`='$telephone', `dateFounded`='$foundedDate', `proprietorsName`='$proprietor', `proprietorsTelephone1`='$proprietorPhone1',
- `proprietorsTelephone2`='$proprietorPhone2',`parsuantEstablishe`='$parsuantEstablishe' WHERE accreditationID ='$accreditationID'";
+ `proprietorsTelephone2`='$proprietorPhone2',`parsuantEstablishe`='$parsuantEstablishe' WHERE universityID ='$accreditationID'";
 
 if (!mysqli_query($db_link,$sql)){
     die("Faild  to update university details" . mysqli_error($db_link));    
@@ -41,7 +41,7 @@ if (!mysqli_query($db_link,$sql)){
 
  $sql= "UPDATE `vcinformation_ssf` SET `firstName`='$vcFname', `surname`='$vcLname', `otherName`='$vcOname',`telephone1`='$vcPhone',
   `telephone2`='$telephone', `qualification`='$vcQualification', `homeAddress`='$address', `securityAnswer`='$sanswer'
-   WHERE `accreditationID`='$accreditationID'";
+   WHERE `universityID`='$accreditationID'";
  if(!mysqli_query($db_link,$sql)){
      die("Faild  to insert VC information" . mysqli_error($db_link));
       }

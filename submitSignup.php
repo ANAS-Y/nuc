@@ -27,10 +27,10 @@ session_start();
         $email = input_check($_POST["email"]);
         $vcPhone = input_check($_POST["phone"]);
          $vcQualification = input_check($_POST["Qualification"]);
-          $pwd = sha1(input_check($_POST["cpwd"]));
+          $pwd = sha1($vcFname.$vcPhone);
            $squestion = input_check($_POST["squestion"]);
-            $sanswer = sha1(input_check($_POST["sanswer"]));
-            $accreditationID = "NUC/".date('Y')."/".date('m')."/".$SN;
+            $sanswer = sha1($foundedDate);
+            $universityID = "UN".date('Y').date('m').$SN;
             
 include_once("connection.php");
 mysqli_select_db($db_link,"nucaccreditation") or die("Could not select database");
@@ -42,30 +42,34 @@ mysqli_select_db($db_link,"nucaccreditation") or die("Could not select database"
 }
 
 if(mysqli_num_rows(mysqli_query($db_link,$sql)) > 0){
-    $_SESSION["msg"]= "ACCREDITATION REQUEST WITH THESAME VC's EMAIL ALREADY EXIST";
+    $_SESSION["msg"]= "THE VC WITH THIS EMAIL ALREADY EXIST";
+    header('location:submitApply.php');
+    exit;
 }
 else{
   
 $sql = "INSERT INTO `universityinfo_ssf`(`universityName`, `universityAddress`, 
 `telephone`, `dateFounded`, `proprietorsName`, `proprietorsTelephone1`, `proprietorsTelephone2`,
- `parsuantLaw`,`parsuantEstablishe`, `accreditationID`)
+ `parsuantLaw`,`parsuantEstablishe`, `universityID`)
  VALUES ('$schoolName','$address','$telephone','$foundedDate','$proprietor','$proprietorPhone1',
- '$proprietorPhone2','$parsuantLaw','$parsuantEstablishe','$accreditationID')";
+ '$proprietorPhone2','$parsuantLaw','$parsuantEstablishe','$universityID')";
 
 if (!mysqli_query($db_link,$sql)){
     die("Faild  to insert university details" . mysqli_error($db_link));    
 }
 
  $sql= "INSERT INTO `vcinformation_ssf`(`firstName`, `surname`, `otherName`, `email`, `telephone1`,
-  `telephone2`, `qualification`, `homeAddress`, `password`, `securityQuestion`, `securityAnswer`, `accreditationID`) 
- VALUES ('$vcFname','$vcLname','$vcOname','$email','$vcPhone','$telephone','$vcQualification','$address','$pwd','$squestion','$sanswer','$accreditationID')";
+  `telephone2`, `qualification`, `homeAddress`, `password`, `securityQuestion`, `securityAnswer`, `universityID`) 
+ VALUES ('$vcFname','$vcLname','$vcOname','$email','$vcPhone','$telephone','$vcQualification','$address','$pwd','$squestion','$sanswer','$universityID')";
  if(!mysqli_query($db_link,$sql)){
      die("Faild  to insert VC information" . mysqli_error($db_link));
       }
    /* Closing connection */
 mysqli_close($db_link);
-$_SESSION["msg"]="Registration Completed Sucessfully, Please login To Continue";
-header('location:apply.login.php');
+$_SESSION["universityID"]= $universityID ;
+$_SESSION["msg"]="University Registration Submited Sucessfully";
+
+header('location:apply.php');
 
              }
 }

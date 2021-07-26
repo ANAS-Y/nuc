@@ -1,7 +1,8 @@
 <?php
 session_start();
              $_SESSION["msg"]="";
-$accreditationID =  $_SESSION["accreditationID"];
+$accreditationID = "NUC/ACC".date('Y')."/".date('m')."/".$SN;
+$universityID =  $_SESSION["universityID"];
    function input_check($data){ 
     $data=trim($data);
     $data=stripslashes($data);
@@ -44,22 +45,22 @@ mysqli_select_db($db_link,"nucaccreditation") or die("Could not select database"
 }
 
 if(mysqli_num_rows(mysqli_query($db_link,$sql)) > 0){
-    $_SESSION["msg"]= "ACCREDITATION REQUEST ALREADY SUBMITED";
-    header('location:apply.php');
+    $_SESSION["msg"]= " UNIVERSITY PROGRAMES ALREADY SUBMITED";
+    header('location:admin.home.php');
 }
 else{
   
 $sql = "INSERT INTO `accreditationrequest_apply`(`accreditationID`, `RequestReasons`, `prposedDate`,
- `Fname`, `Lname`, `Oname`, `status`)
- VALUES ('$accreditationID','$reasons','$adate','$Fname','$Lname','$Oname','submited')";
+ `Fname`, `Lname`, `Oname`, `status`,`universityID`)
+ VALUES ('$accreditationID','$reasons','$adate','$Fname','$Lname','$Oname','submited','')";
 
 if (!mysqli_query($db_link,$sql)){
     die("Faild  to insert submited details" . mysqli_error($db_link));    
 }
 /* Closing connection */
 mysqli_close($db_link);
-$_SESSION["msg"]= "ACCREDITATION REQUEST SUCESSFULLY SUBMITED";
-header('location:apply.php');
+$_SESSION["msg"]= "PROGRAMES REGISTRTION COMPLETED SUCESSFULLY";
+header('location:admin.home.php');
  
              }
       }       

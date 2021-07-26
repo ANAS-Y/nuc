@@ -1,5 +1,58 @@
 
-<?php require ('header1.inc');?>
+<?php require ('header1.inc');
+$accreditationID=$_SESSION['accreditationID'];
+$ID = $_SESSION['ID'];
+function input_check($data){ 
+    $data=trim($data);
+    $data=stripslashes($data);
+    $data=htmlspecialchars($data);
+    return($data);
+    }
+    
+include_once("connection.php");
+mysqli_select_db($db_link,"nucaccreditation") or die("Could not select database");
+            
+             /* Performing SQL query */
+  $sql = "SELECT * FROM `staffing_pef` WHERE accreditationID= '$accreditationID' AND ID='$ID'";
+if (!mysqli_query($db_link,$sql)){die("Faild  to check the existance of Vc's self study form" . mysqli_error($db_link));}
+
+             /* Performing SQL query */
+if(mysqli_num_rows(mysqli_query($db_link,$sql)) > 0){ 
+  /* Closing connection */
+mysqli_close($db_link);
+header('location:panelpef4.php');
+}
+
+if($_SERVER["REQUEST_METHOD"]=="POST"){
+        $objectives = input_check($_POST["staff"]);
+       $score = input_check($_POST["score"]);
+       $comment = input_check($_POST["comment"]);
+       $curriculum = input_check($_POST["curriculum1"]);
+       $score1 = input_check($_POST["score1"]);
+       $comment1 = input_check($_POST["comment1"]);
+       $curriculum2 = input_check($_POST["standard"]);
+       $score2 = input_check($_POST["score2"]);
+       $comment2 = input_check($_POST["comment2"]);
+       $curriculum3 = input_check($_POST["standard3"]);
+       $score3 = input_check($_POST["score3"]);
+       $comment3 = input_check($_POST["comment3"]);
+
+  
+$sql = "INSERT INTO `staffing_pef`(`accreditationID`, `content`, `remark`, `score`, `comment`, `ID`) 
+VALUES 
+('$accreditationID','The actual staff/student ratio of the programme','$objectives','$score','$comment','$ID'),
+('$accreditationID','Staff Mix by Rank','$curriculum','$score1','$comment1','$ID'),
+('$accreditationID','Qualifications of the Teaching Staff','$curriculum2','$score2','$comment2','$ID'),
+('$accreditationID','Competence of Teaching Staff','$$curriculum3','$score3','$comment3','$ID')";
+if (!mysqli_query($db_link,$sql)){die("Faild  to insert acc1" . mysqli_error($db_link)); }
+
+$_SESSION["msg"]= "Submited Sucessfully";
+/* Closing connection */
+mysqli_close($db_link);
+header('location:panelpef4.php');
+}
+
+?>
 <div class="container-fluid">
 <!-- first div start here-->
 <div class="col card" >
@@ -19,7 +72,7 @@
 <div class="card-title " >
 <h5 style="text-align: center;">ACADEMIC STAFF (Staff/Student Ratio and Staff Mix by Rank ) </h5>
 </div>
-<form>
+<form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF'])?>" method="post">
    <div class="form-row">
     <div class="col">
        <input type="number" id="staffNo" name="StaffNo" required="required" class="form-control" placeholder="Actual number of academic staff">
@@ -73,7 +126,7 @@
       <input type="number" id="score2" name="score2" required="required" class="form-control" placeholder="Score Awarded ">
       </div>
       <div class="col">
-     <input type="text" id="Comment3" name="comment3" required="required" class="form-control" placeholder="Comments if any">
+     <input type="text" id="Comment3" name="comment2" required="required" class="form-control" placeholder="Comments if any">
       </div>
   </div>
 
@@ -96,7 +149,7 @@
 </div>
   <div class="form-row">
     <div class="col-sm-5">
-    <select id="standard" name="standard"class="form-control" onchange="scoreSelect()" >
+    <select id="standard" name="standard3"class="form-control" onchange="scoreSelect()" >
         <option selected ></option>
         <option>70% or more have a Ph.D (score 7) </option>
         <option>Less than 70% but more than 60% have a Ph.D (score 4)</option>
@@ -105,7 +158,7 @@
       </select>
           </div>
     <div class="col">
-      <input type="number" id="score2" name="score2" required="required" class="form-control" placeholder="Score Awarded ">
+      <input type="number" id="score2" name="score3" required="required" class="form-control" placeholder="Score Awarded ">
       </div>
       <div class="col">
      <input type="text" id="Comment3" name="comment3" required="required" class="form-control" placeholder="Comments if any">
@@ -116,27 +169,25 @@
   </div>
    <div class="form-row">
     <div class="col-sm-5">
-    <select  id="curriculum" name="curriculum"class="form-control" onchange="scoreSelect()">
+    <select  id="curriculum" name="curriculum1"class="form-control" onchange="scoreSelect()">
         <option selected ></option>
         <option>Competent (score 1)</option>
         <option>Not competent (score 0)</option>
         </select>
           </div>
     <div class="col">
-      <input type="number" id="score4" name="score4" required="required" class="form-control" placeholder="Score Awarded ">
+      <input type="number" id="score4" name="score1" required="required" class="form-control" placeholder="Score Awarded ">
       </div>
        <div class="col">
-     <input type="text" id="Comment4" name="comment4" required="required" class="form-control" placeholder="Comments if any">
+     <input type="text" id="Comment4" name="comment1" required="required" class="form-control" placeholder="Comments if any">
       </div>
       
   </div>
   
  <div class="form-row">
+ 
  <div class="col">
- <a class="btn btn-primary login-btn" href="panelpef2.php" style="float: right;margin-right: 4%; width: 95%; ">Previous</a>
- </div>
- <div class="col">
- <button type="submit" class="btn btn-primary login-btn" style="margin-left: 6%;width: 95%; ">Next</button>
+ <button type="submit" class="btn btn-primary login-btn" value="Submit" style="margin-left: 6%;width: 95%; ">Submit</button>
 </div>
  </div>
 <br />

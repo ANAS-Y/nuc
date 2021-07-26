@@ -1,4 +1,4 @@
-<?php require ('header1.inc');
+<?php require ('mainHeader.inc');
 function input_check($data){ 
     $data=trim($data);
     $data=stripslashes($data);
@@ -17,6 +17,11 @@ if (!mysqli_query($db_link,$sql)){ die("Faild  to check email" . mysqli_error($d
    if(mysqli_num_rows($result) > 0){
     $fetch =mysqli_fetch_assoc($result);
     $email =$fetch["email"];
+    $ID =$fetch["ID"];
+    mail(
+$email,
+"PASSWORD RECOVERY ",
+"A Password recovery was successful your Password:".$ID."");
 $_SESSION["msg"]= 'Your password was sent to ' .$email. '<br> please check your inbox or sperm';
 } else{
 
